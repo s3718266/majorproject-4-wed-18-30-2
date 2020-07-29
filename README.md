@@ -6,7 +6,7 @@
 * Irvine, Aldo (s3692192)
 * Farshchi, Negar (s3636862)
 * Pekaj, Aleksander (s3601291)
-* SURNAME, GivenName (sXXXX)
+* Thompson, Amy (s3718266)
 * SURNAME, GivenName (sXXXX)
 
 ## Records
