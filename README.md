@@ -1,6 +1,6 @@
 # RMIT SEPT 2020 Major Project
 
-# Group 00
+# Group 02
 
 ## Members
 * Irvine, Aldo (s3692192)
