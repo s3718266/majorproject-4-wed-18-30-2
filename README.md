@@ -7,7 +7,7 @@
 * Farshchi, Negar (s3636862)
 * Pekaj, Aleksander (s3601291)
 * Thompson, Amy (s3718266)
-* SURNAME, GivenName (sXXXX)
+* Dao, Richard (s3544270)
 
 ## Records
 
