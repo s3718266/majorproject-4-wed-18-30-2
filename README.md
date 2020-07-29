@@ -4,7 +4,7 @@
 
 ## Members
 * SURNAME, GivenName (sXXXX)
-* SURNAME, GivenName (sXXXX)
+* Farshchi, Negar (s3636862)
 * SURNAME, GivenName (sXXXX)
 * SURNAME, GivenName (sXXXX)
 * SURNAME, GivenName (sXXXX)
