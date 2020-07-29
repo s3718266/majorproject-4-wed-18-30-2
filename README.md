@@ -3,7 +3,7 @@
 # Group 00
 
 ## Members
-* SURNAME, GivenName (sXXXX)
+* Irvine, Aldo (s3692192)
 * Farshchi, Negar (s3636862)
 * Pekaj, Aleksander (s3601291)
 * SURNAME, GivenName (sXXXX)
