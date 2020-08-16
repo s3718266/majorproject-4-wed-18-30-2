@@ -1,6 +1,7 @@
-# RMIT SEPT 2020 Major Project
+# RMIT SEPT 2020 Major Project (Sprint 2)
 
 # Group 02
+17/08/2020 - Milestone 1 Documentation [Here](/Deployable/docs) 
 
 ## Members
 * Irvine, Aldo (s3692192)
@@ -12,9 +13,8 @@
 ## Records
 
 * Github repository : https://github.com/RMIT-SEPT/majorproject-4-wed-18-30-2
-* ClickUp Workspace : https://app.clickup.com/xxxx/yyyy
+* Trello Board : https://trello.com/agme3
 
 
 ## Code documentation
 
-[Quick Start](/docs/README.md) in `docs` folder
