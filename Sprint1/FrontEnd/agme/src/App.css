@@ -6,6 +6,14 @@
   height: 100%;
 }
 
+.signup-form {
+  width: 100%;
+  max-width: 500px;
+  padding-top: 70px;
+  margin: auto;
+  height: 100%;
+}
+
 #heading{
   text-align: center;
 }
@@ -16,7 +24,7 @@
 }
 
 .footer {
-  position: absolute;
+  margin-top: 210px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -24,6 +32,17 @@
   background-color: #efefef;
   text-align: center;
   color: black ;
-   
+}
+
+.main-container {
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; /* height of your footer */
+ }
+
+#content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
 }
 

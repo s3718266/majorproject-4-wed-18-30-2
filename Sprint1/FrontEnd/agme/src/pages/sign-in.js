@@ -25,7 +25,7 @@ function SignIn() {
         <div className="text-center">
           <a href="/sign-up">Sign up</a>
           <span className="p-2">|</span>
-          <a href="/sign-up">Forgot Password</a>
+          <a href="/">Forgot Password</a>
         </div>
 
 
