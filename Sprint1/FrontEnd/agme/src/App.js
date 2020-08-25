@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="login-form">
+    <Form className="login-form">
       <h1 class="font-weight-bold" id="heading">Sign In</h1>
 
       <FormGroup>
@@ -18,12 +18,18 @@ function App() {
         <Input type="password" placeholder="Password"></Input>
       </FormGroup>
 
-      <Button button="btn-lg">
+      <Button className="btn-lg btn-success btn-block mt-4 mb-3">
         Log In
       </Button>
 
+      <div className="text-center">
+        <a href="/sign-up">Sign up</a>
+        <span className="p-2">|</span>
+        <a href="/sign-up">Forgot Password</a>
+      </div>
 
-    </div>
+
+    </Form>
   );
 }
 
