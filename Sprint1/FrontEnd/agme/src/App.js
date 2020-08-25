@@ -1,35 +1,26 @@
 import React from 'react';
 import './App.css';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Route, BrowserRouter as Router, Switch} from "react-router-dom"
+import SignIn from './pages/sign-in';
+import SignUp from './pages/sign-up';
+import Home from './pages/home';
 
 function App() {
   return (
-    <Form className="login-form">
-      <h1 class="font-weight-bold" id="heading">Sign In</h1>
+    <div className="container">
 
-      <FormGroup>
-        <Label>Email</Label>
-        <Input type="email" placeholder="Email"></Input>
-      </FormGroup>
+      <Router>
 
-      <FormGroup>
-        <Label>Password</Label>
-        <Input type="password" placeholder="Password"></Input>
-      </FormGroup>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/sign-in" component={SignIn} />
+          <Route path="/sign-up" component={SignUp} />
+        </Switch>
 
-      <Button className="btn-lg btn-success btn-block mt-4 mb-3">
-        Log In
-      </Button>
+      </Router>
 
-      <div className="text-center">
-        <a href="/sign-up">Sign up</a>
-        <span className="p-2">|</span>
-        <a href="/sign-up">Forgot Password</a>
-      </div>
-
-
-    </Form>
+    </div>
   );
 }
 

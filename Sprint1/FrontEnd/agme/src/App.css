@@ -10,6 +10,11 @@
   text-align: center;
 }
 
+#home{
+  text-align: center;
+  padding-top: 100px ;
+}
+
 .footer {
   position: absolute;
   right: 0;
