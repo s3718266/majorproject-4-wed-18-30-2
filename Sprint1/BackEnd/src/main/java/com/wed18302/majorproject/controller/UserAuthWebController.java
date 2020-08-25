@@ -13,7 +13,7 @@ import com.wed18302.majorproject.model.UserRepository;
 import com.wed18302.majorproject.model.UserType;  
 
 @RestController  
-public class WebController {  
+public class UserAuthWebController {  
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
