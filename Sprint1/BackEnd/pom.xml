@@ -11,18 +11,14 @@
 	<groupId>com.wed18302</groupId>
 	<artifactId>majorproject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>majorproject</name>
-	<description>Major Project (Wednesday 18-30-2)</description>
+	<name>demo</name>
+	<description>Major Project - 6:30PM Wednesday Tut Group 2</description>
 
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -35,6 +31,11 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -44,6 +45,14 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>javax.persistence</groupId>
+		    <artifactId>javax.persistence-api</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
 		</dependency>
 	</dependencies>
 

@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MajorprojectApplication {
+public class MajorProject {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MajorprojectApplication.class, args);
+		SpringApplication.run(MajorProject.class, args);
+		//dataBase = new Database();
 	}
 
 }
