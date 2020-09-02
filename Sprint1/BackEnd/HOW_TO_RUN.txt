@@ -1,0 +1,6 @@
+INSTRUCTIONS
+Run it normally as an Springboot applicaiton, ensure JRE 11 is being used
+You also need to setup a mysql local server to run the backend currently
+A mysql database needs to be created called `agme` running on localhost: port 3306
+HSQL is currently not supported for production profile, development profile will need to be created
+The server information of the mysql database can be modified in application.properties
