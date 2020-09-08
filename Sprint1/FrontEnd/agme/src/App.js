@@ -6,6 +6,8 @@ import SignIn from './pages/sign-in';
 import SignUp from './pages/sign-up';
 import Profile from './pages/profile';
 import Home from './pages/home';
+import Dashboard from './pages/dashboard';
+
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             <Route path="/sign-in" component={SignIn} />
             <Route path="/sign-up" component={SignUp} />
             <Route path="/profile" component={Profile} />
+            <Route path="/dashboard" component={Dashboard} />
+
           </Switch>
 
         </Router>
