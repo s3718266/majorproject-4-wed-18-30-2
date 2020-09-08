@@ -1,0 +1,45 @@
+package com.wed18302.majorproject;
+
+import java.util.Date;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.wed18302.majorproject.model.User;
+
+public class Authentication {
+
+    public static final String SECRET = "WED18302JWTSECRET";
+    public static final long EXPIRATION_SECONDS = 86400; // 1 day
+    
+	public static String GenerateTokenFromUser(User auth) {
+		String token = JWT.create()
+                .withSubject(auth.getEmail())
+                .withIssuer("wed18302")
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_SECONDS))
+                .sign(Algorithm.HMAC256(SECRET.getBytes()));
+		return token;
+	}
+	
+	public static boolean DecodeToken(String token) {
+		try {
+			Algorithm algorithm = Algorithm.HMAC256(SECRET);
+		    JWTVerifier verifier = JWT.require(algorithm)
+		        .withIssuer("wed18302")
+		        .build();
+		    DecodedJWT jwt = verifier.verify(token);
+		    //System.out.println(jwt.getSubject());
+		    return true;
+		} catch (JWTVerificationException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static String generateErrorJson(String error) {
+		return "{\"error\":\"" + error + "\"}";
+	}
+	
+}
