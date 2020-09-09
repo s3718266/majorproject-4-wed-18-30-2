@@ -8,7 +8,6 @@ import Profile from './pages/profile';
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 
-
 function App() {
   return (
     <div id="main-container">
