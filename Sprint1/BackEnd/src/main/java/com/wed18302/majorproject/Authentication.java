@@ -14,7 +14,7 @@ public class Authentication {
     public static final String SECRET = "WED18302JWTSECRET";
     public static final long EXPIRATION_SECONDS = 86400; // 1 day
     
-	public static String GenerateTokenFromUser(User auth) {
+	public static String generateTokenFromUser(User auth) {
 		String token = JWT.create()
                 .withSubject(auth.getEmail())
                 .withIssuer("wed18302")
@@ -23,7 +23,7 @@ public class Authentication {
 		return token;
 	}
 	
-	public static boolean DecodeToken(String token) {
+	public static boolean decodeToken(String token) {
 		try {
 			Algorithm algorithm = Algorithm.HMAC256(SECRET);
 		    JWTVerifier verifier = JWT.require(algorithm)
@@ -36,6 +36,14 @@ public class Authentication {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public static String generateTokenJson(User auth) {
+		return formatTokenJson(generateTokenFromUser(auth));
+	}
+	
+	public static String formatTokenJson(String token) {
+		return "{\"auth-token\":\"" + token + "\"}";
 	}
 	
 	public static String generateErrorJson(String error) {

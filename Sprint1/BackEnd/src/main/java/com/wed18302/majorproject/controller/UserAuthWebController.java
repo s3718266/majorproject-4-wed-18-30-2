@@ -21,7 +21,7 @@ public class UserAuthWebController {
     @Autowired
     private UserRepository userRepository;
     
-    @RequestMapping("/login")  
+    @RequestMapping("/auth/login")  
     @ResponseBody  
     public String loginPassword(HttpServletRequest request) {  
 
@@ -35,7 +35,7 @@ public class UserAuthWebController {
     	var user = userRepository.findByEMAIL(email);
     	if (user != null) {
     		if ( passwordEncoder.matches(password, user.getPassword()) ) {
-    			return Authentication.GenerateTokenFromUser(user);
+    			return Authentication.generateTokenJson(user);
     		} else {
     			return Authentication.generateErrorJson("Login failure");
     		}
@@ -44,15 +44,15 @@ public class UserAuthWebController {
         return Authentication.generateErrorJson("Account not found.");  
     }
     
-    @RequestMapping("/logintoken")  
+    @RequestMapping("/auth/verifytoken")  
     @ResponseBody  
     public String loginPassword(String token) {  
     	
-        return Authentication.DecodeToken(token) ? "Success" : "Failure";  
+        return Authentication.decodeToken(token) ? "1" : "0";  
     }
 
 
-    @RequestMapping("/register")  
+    @RequestMapping("/auth/register")  
     @ResponseBody  
     public String registerAccount(HttpServletRequest request) {  
     	
@@ -63,13 +63,13 @@ public class UserAuthWebController {
     	    	
     	String token = RegisterAccount(UserType.Customer, email, password, firstname, lastname);
     	if (token != "") {
-    		return token;
+    		return Authentication.formatTokenJson(token);
     	}
     	
     	return Authentication.generateErrorJson("Registration failure.");
     }
 
-    @RequestMapping("/registeradmin")  
+    @RequestMapping("/auth/registeradmin")  
     @ResponseBody  
     public String registerAdminAccount(HttpServletRequest request) {  
     	
@@ -80,7 +80,7 @@ public class UserAuthWebController {
     	    	    	
     	String token = RegisterAccount(UserType.Administrator, email, password, firstname, lastname);
     	if (token != "") {
-    		return token;
+    		return Authentication.formatTokenJson(token);
     	}
 
     	return Authentication.generateErrorJson("Registration failure.");
@@ -96,7 +96,7 @@ public class UserAuthWebController {
 	    	var hash = passwordEncoder.encode(rawPassword);
 	        var newUser = new User(email, hash, userType.getValue(), firstname, lastname);
 	    	userRepository.save(newUser);
-	    	return Authentication.GenerateTokenFromUser(newUser);
+	    	return Authentication.generateTokenJson(newUser);
     	} else {
         	return Authentication.generateErrorJson("Account with the specified email already exists.");
     	}
