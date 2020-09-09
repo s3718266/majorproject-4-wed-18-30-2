@@ -42,6 +42,10 @@ public class User {
     	return this.ID;
     }
     
+    public String getEmail() {
+    	return this.EMAIL;
+    }
+    
     public String getPassword() {
     	return this.PASSWORD;
     }

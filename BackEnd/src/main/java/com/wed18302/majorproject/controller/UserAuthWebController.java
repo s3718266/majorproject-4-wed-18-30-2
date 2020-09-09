@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wed18302.majorproject.Authentication;
 import com.wed18302.majorproject.model.User;
 import com.wed18302.majorproject.model.UserRepository;
 import com.wed18302.majorproject.model.UserType;  
@@ -20,7 +21,7 @@ public class UserAuthWebController {
     @Autowired
     private UserRepository userRepository;
     
-    @RequestMapping("/login")  
+    @RequestMapping("/auth/login")  
     @ResponseBody  
     public String loginPassword(HttpServletRequest request) {  
 
@@ -29,22 +30,29 @@ public class UserAuthWebController {
 
     	// TODO: Improve validation for parameters
     	if (email == null || password == null)
-    		return "Invalid auth entry.";
+    		return Authentication.generateErrorJson("Some fields were left unfilled or not filled correctly.");
     	    	
     	var user = userRepository.findByEMAIL(email);
     	if (user != null) {
     		if ( passwordEncoder.matches(password, user.getPassword()) ) {
-    			return "Login successful";
+    			return Authentication.generateTokenJson(user);
     		} else {
-    			return "Login failure";
+    			return Authentication.generateErrorJson("Login failure");
     		}
     	}
     	
-        return "Account not found.";  
+        return Authentication.generateErrorJson("Account not found.");  
+    }
+    
+    @RequestMapping("/auth/verifytoken")  
+    @ResponseBody  
+    public String loginPassword(String token) {  
+    	
+        return Authentication.decodeToken(token) ? "1" : "0";  
     }
 
 
-    @RequestMapping("/register")  
+    @RequestMapping("/auth/register")  
     @ResponseBody  
     public String registerAccount(HttpServletRequest request) {  
     	
@@ -52,16 +60,16 @@ public class UserAuthWebController {
     	String password = request.getParameter("password");
     	String firstname = request.getParameter("firstname");
     	String lastname = request.getParameter("lastname");
-    	    	    	    	
-    	if (RegisterAccount(UserType.Customer, email, password, firstname, lastname)) {
-
-            return "Registered new customer account with Email: " + email + "and Password: " + password; 
+    	    	
+    	String token = RegisterAccount(UserType.Customer, email, password, firstname, lastname);
+    	if (token != "") {
+    		return Authentication.formatTokenJson(token);
     	}
     	
-    	return "Registration failed.";
+    	return Authentication.generateErrorJson("Registration failure.");
     }
 
-    @RequestMapping("/registeradmin")  
+    @RequestMapping("/auth/registeradmin")  
     @ResponseBody  
     public String registerAdminAccount(HttpServletRequest request) {  
     	
@@ -69,30 +77,30 @@ public class UserAuthWebController {
     	String password = request.getParameter("password");
     	String firstname = request.getParameter("firstname");
     	String lastname = request.getParameter("lastname");
-    	    	    	    	
-    	if (RegisterAccount(UserType.Administrator, email, password, firstname, lastname)) {
-
-            return "Registered new administrator account with Email: " + email + "and Password: " + password; 
+    	    	    	
+    	String token = RegisterAccount(UserType.Administrator, email, password, firstname, lastname);
+    	if (token != "") {
+    		return Authentication.formatTokenJson(token);
     	}
-    	
-    	return "Registration failed.";
+
+    	return Authentication.generateErrorJson("Registration failure.");
     }
     
-    public boolean RegisterAccount(UserType userType, String email, String rawPassword, String firstname, String lastname) {
+    public String RegisterAccount(UserType userType, String email, String rawPassword, String firstname, String lastname) {
     	// TODO: Improve validation for parameters
     	if (email == null || rawPassword == null || firstname == null || lastname == null)
-    		return false;
+    		return "";
     	
     	var user = userRepository.findByEMAIL(email);
     	if (user == null) {
 	    	var hash = passwordEncoder.encode(rawPassword);
 	        var newUser = new User(email, hash, userType.getValue(), firstname, lastname);
 	    	userRepository.save(newUser);
+	    	return Authentication.generateTokenJson(newUser);
     	} else {
-    		return false; // user already exists
+        	return Authentication.generateErrorJson("Account with the specified email already exists.");
     	}
     	
-    	return true;
     }
     
     
