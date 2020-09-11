@@ -1,7 +1,7 @@
 # RMIT SEPT 2020 Major Project
 
 # Group 02
-17/08/2020 - Milestone 1 Documentation [Here](/Deployable/docs) 
+17/08/2020 - Milestone 1 Documentation [Here](/docs) 
 
 ## Members
 * Irvine, Aldo (s3692192)
