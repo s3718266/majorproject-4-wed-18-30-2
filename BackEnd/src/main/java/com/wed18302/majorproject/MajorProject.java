@@ -26,7 +26,7 @@ public class MajorProject {
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	    return new BCryptPasswordEncoder();
+	    return encoder;
 	}
 
 	@Bean
@@ -35,8 +35,8 @@ public class MajorProject {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("http://localhost:3000");
-			}
-		};
+ 			}
+0	 	};
 	}
 	
 	
