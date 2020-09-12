@@ -5,13 +5,40 @@ function Header() {
         <div className="header">
             <nav className="navbar sticky-top navbar-dark bg-secondary">
                 <a className="navbar-brand nav justify-content-center" href="/">AGME</a>
-                <ul class="nav justify-content-right nav nav-pills">
-                    <li class="nav-item">
+                <ul className="nav justify-content-right nav nav-pills">
+
+                    {localStorage.getItem('auth_token') != null &&
+
+                        <li className="nav-item">
+                            <a className="navbar-brand nav justify-content-center" href="/dashboard">Dashboard</a>
+                        </li>
+
+                    }
+
+                    {localStorage.getItem('auth_token') != null &&
+
+                    <li className="nav-item">
+                        <a className="navbar-brand nav justify-content-center" href="/logout">Logout</a>
+                    </li>
+
+                    }
+
+                    {localStorage.getItem('auth_token') == null &&
+
+                    <li className="nav-item">
                         <a className="navbar-brand nav justify-content-center" href="/sign-in">Sign in</a>
                     </li>
-                    <li class="nav-item">
+
+                    }
+                    
+                    {localStorage.getItem('auth_token') == null &&
+
+                    <li className="nav-item">
                         <a className="navbar-brand nav justify-content-center" href="/sign-up">Sign up</a>
                     </li>
+
+                    }
+
                 </ul>
             </nav>
         </div>
