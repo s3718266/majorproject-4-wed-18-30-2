@@ -8,9 +8,7 @@ function Dashboard() {
 
     <Form className="dashboard-form">
 
-        <li className="nav-item">
-            <a className="navbar-brand nav justify-content-center" href="/dashboard">Dashboard</a>
-        </li>
+      <h1 className="font-weight-bold" id="heading">Dashboard</h1>
 
       <FormGroup>
         <Label>First Name</Label>

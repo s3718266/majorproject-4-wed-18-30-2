@@ -11,6 +11,25 @@ class SignIn extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  showErrorModal(msg) {
+
+    const node = document.getElementById('errorMessage');
+    node.innerHTML = msg;
+    node.classList.remove('d-none');
+    
+  }
+
+  handleLoginResponse(resp) {
+
+    if(typeof resp.error != "undefined") {
+      this.showErrorModal(resp.error);
+    } else if (typeof resp['auth-token'] != "undefined") {
+      localStorage.setItem('auth_token', resp['auth-token']);
+      window.location = 'dashboard';
+    }
+
+  }
+
   handleSubmit(event) {
 
     event.preventDefault();
@@ -21,7 +40,7 @@ class SignIn extends React.Component {
       body: data
     })
       .then(res => res.json())
-      .then(res => console.log(res))
+      .then(res => this.handleLoginResponse(res))
 
   }
 
@@ -30,6 +49,10 @@ class SignIn extends React.Component {
     return (
       <Form className="login-form" onSubmit={this.handleSubmit}>
         <h1 className="font-weight-bold" id="heading">Sign In</h1>
+
+        <div className="alert alert-danger d-none" id="errorMessage">
+
+        </div>
 
         <FormGroup>
           <Label>Email</Label>
@@ -52,7 +75,6 @@ class SignIn extends React.Component {
         </div>
 
       </Form>
-
     );
 
   }
