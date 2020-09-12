@@ -22,6 +22,8 @@ class SignUp extends React.Component {
       body: data
     })
       .then(res => console.log(res))
+      .then(window.alert("User is created!"))
+      .then(window.location = 'sign-in')
 
   }
 
