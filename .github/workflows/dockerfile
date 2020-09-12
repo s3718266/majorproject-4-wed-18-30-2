@@ -1,0 +1,5 @@
+FROM java: 11
+COPY JavaAutoBuild.java .
+RUN javac JavaAutoBuild.java
+
+CMD ["java", "JavaAutoBuild"]
