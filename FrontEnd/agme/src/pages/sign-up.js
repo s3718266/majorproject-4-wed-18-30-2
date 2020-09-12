@@ -12,6 +12,7 @@ class SignUp extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+
   handleSubmit(event) {
 
     event.preventDefault();
@@ -22,9 +23,8 @@ class SignUp extends React.Component {
       body: data
     })
       .then(res => console.log(res))
-      .then(window.alert("User is created!"))
+      .then(window.alert("User Created"))
       .then(window.location = 'sign-in')
-
   }
 
 
@@ -35,6 +35,9 @@ class SignUp extends React.Component {
       <Form className="signup-form" onSubmit={this.handleSubmit}>
         <h1 className="font-weight-bold" id="heading">Sign Up</h1>
 
+        <div className="alert alert-danger d-none" id="errorMessage">
+
+        </div>
         <FormGroup>
           <Label>First Name</Label>
           <Input type="text" name="firstname" placeholder="First Name" ref={node => (this.firstname = node)}></Input>
