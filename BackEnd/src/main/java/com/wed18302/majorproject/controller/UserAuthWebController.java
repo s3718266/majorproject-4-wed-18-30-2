@@ -15,6 +15,9 @@ import com.wed18302.majorproject.model.UserType;
 
 @RestController  
 public class UserAuthWebController {  
+	
+	public final String REGISTRATION_FAILURE = "Registration failure. Account already exists in database.";
+	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
@@ -66,7 +69,7 @@ public class UserAuthWebController {
     		return Authentication.formatTokenJson(token);
     	}
     	
-    	return Authentication.generateErrorJson("Registration failure. Account already exists in database.");
+    	return Authentication.generateErrorJson(REGISTRATION_FAILURE);
     }
 
     @RequestMapping("/auth/registeradmin")  
@@ -83,7 +86,7 @@ public class UserAuthWebController {
     		return Authentication.formatTokenJson(token);
     	}
 
-    	return Authentication.generateErrorJson("Registration failure.");
+    	return Authentication.generateErrorJson(REGISTRATION_FAILURE);
     }
     
     public String RegisterAccount(UserType userType, String email, String rawPassword, String firstname, String lastname) {
