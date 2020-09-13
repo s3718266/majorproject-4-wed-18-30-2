@@ -66,7 +66,7 @@ public class UserAuthWebController {
     		return Authentication.formatTokenJson(token);
     	}
     	
-    	return Authentication.generateErrorJson("Registration failure.");
+    	return Authentication.generateErrorJson("Registration failure. Account already exists in database.");
     }
 
     @RequestMapping("/auth/registeradmin")  
@@ -97,9 +97,9 @@ public class UserAuthWebController {
 	        var newUser = new User(email, hash, userType.getValue(), firstname, lastname);
 	    	userRepository.save(newUser);
 	    	return Authentication.generateTokenJson(newUser);
-    	} else {
-        	return Authentication.generateErrorJson("Account with the specified email already exists.");
     	}
+    	
+    	return ""; // account already exists
     	
     }
     
