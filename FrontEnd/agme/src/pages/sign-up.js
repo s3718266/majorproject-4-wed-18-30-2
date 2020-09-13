@@ -22,9 +22,10 @@ class SignUp extends React.Component {
       method: 'POST',
       body: data
     })
-      .then(res => console.log(res))
-      .then(window.alert("User Created"))
-      .then(window.location = 'sign-in')
+      .then(res => console.log("registration res", res))
+      .catch(error => console.log("registration error", error))
+      // .then(window.alert("User Created"))
+      // .then(window.location = 'sign-in')
   }
 
 
