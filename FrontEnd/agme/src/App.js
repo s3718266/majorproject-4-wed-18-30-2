@@ -7,7 +7,7 @@ import SignUp from './pages/sign-up';
 import Profile from './pages/profile';
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
-import Logout from './pages/Logout';
+import Logout from './pages/logout';
 
 function App() {
   return (
