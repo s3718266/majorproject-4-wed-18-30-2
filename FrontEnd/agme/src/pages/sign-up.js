@@ -12,6 +12,24 @@ class SignUp extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  showErrorModal(msg) {
+
+    const node = document.getElementById('errorMessage');
+    node.innerHTML = msg;
+    node.classList.remove('d-none');
+    
+  }
+
+  handleResponse(resp) {
+
+    if(typeof resp.error != "undefined") {
+      this.showErrorModal(resp.error);
+    } else if (typeof resp['auth-token'] != "undefined") {
+      localStorage.setItem('auth_token', resp['auth-token']);
+      window.location = 'dashboard';
+    }
+
+  }
 
   handleSubmit(event) {
 
@@ -22,12 +40,10 @@ class SignUp extends React.Component {
       method: 'POST',
       body: data
     })
-      .then(res => console.log("registration res", res))
-      .catch(error => console.log("registration error", error))
-      // .then(window.alert("User Created"))
-      // .then(window.location = 'sign-in')
-  }
+    .then(res => res.json())
+    .then(res => this.handleResponse(res))
 
+  }
 
   render() {
 
