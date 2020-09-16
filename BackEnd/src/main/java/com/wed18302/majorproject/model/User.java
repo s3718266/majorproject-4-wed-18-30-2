@@ -50,6 +50,14 @@ public class User {
     	return this.PASSWORD;
     }
     
+    public UserType getUserType() {    	
+    	return UserType.values()[this.USERTYPE];
+    }
+    
+    public void SetUserType(UserType type) {
+    	this.USERTYPE = type.getValue();
+    }
+    
     @Override
     public String toString() {
     	return String.format("ID: %d, Email: %s", this.ID, this.EMAIL);

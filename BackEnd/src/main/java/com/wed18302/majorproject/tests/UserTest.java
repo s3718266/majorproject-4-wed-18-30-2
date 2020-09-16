@@ -15,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.wed18302.majorproject.model.User;
 import com.wed18302.majorproject.model.UserRepository;
+import com.wed18302.majorproject.model.UserType;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -74,6 +75,18 @@ public class UserTest {
 
     }   
     
-    
+    @Test
+    // sets a target user to admin
+    public void registration_testDatabaseUserSetToAdmin() {
+    	registration_testDatabaseUserAddition();
+    	        
+        User resultUser = userRepository.findByEMAIL("paul.smith@gmail.com");
+
+        UserType type = resultUser.getUserType();
+        Assert.assertTrue(type == UserType.Customer);
+        resultUser.SetUserType(UserType.Administrator);
+        type = resultUser.getUserType();
+        Assert.assertTrue(type == UserType.Administrator);
+    }    
     
 }
