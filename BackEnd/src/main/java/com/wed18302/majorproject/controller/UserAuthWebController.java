@@ -66,7 +66,7 @@ public class UserAuthWebController {
     	    	
     	String token = RegisterAccount(UserType.Customer, email, password, firstname, lastname);
     	if (token != "") {
-    		return Authentication.formatTokenJson(token);
+    		return token;
     	}
     	
     	return Authentication.generateErrorJson(REGISTRATION_FAILURE);
@@ -83,7 +83,7 @@ public class UserAuthWebController {
     	    	    	
     	String token = RegisterAccount(UserType.Administrator, email, password, firstname, lastname);
     	if (token != "") {
-    		return Authentication.formatTokenJson(token);
+    		return token;
     	}
 
     	return Authentication.generateErrorJson(REGISTRATION_FAILURE);

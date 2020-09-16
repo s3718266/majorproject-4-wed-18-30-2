@@ -1,7 +1,7 @@
 name: 'Hello World'
 description: 'Greet someone and record the time'
 inputs:
-  who-to-greet:  # id of input
+  who-to-greet:  s3718266@student.rmit.edu.au
     description: 'Who to greet'
     required: true
     default: 'World'
