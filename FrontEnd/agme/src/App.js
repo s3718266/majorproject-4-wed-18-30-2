@@ -8,13 +8,13 @@ import Profile from './pages/profile';
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 import Logout from './pages/logout';
+import NotFoundPage from './pages/NotFoundPage' ;
 
 function App() {
   return (
     <div id="main-container">
       <div id="content-wrap">
         <Router>
-test
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/sign-in" component={SignIn} />
@@ -22,6 +22,7 @@ test
             <Route path="/profile" component={Profile} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/logout" component={Logout} />
+            <Route component={NotFoundPage} />
 
           </Switch>
 
