@@ -17,12 +17,12 @@ class SignUp extends React.Component {
     const node = document.getElementById('errorMessage');
     node.innerHTML = msg;
     node.classList.remove('d-none');
-    
+
   }
 
   handleResponse(resp) {
 
-    if(typeof resp.error != "undefined") {
+    if (typeof resp.error != "undefined") {
       this.showErrorModal(resp.error);
     } else if (typeof resp['auth-token'] != "undefined") {
       window.location = 'sign-in';
@@ -39,8 +39,8 @@ class SignUp extends React.Component {
       method: 'POST',
       body: data
     })
-    .then(res => res.json())
-    .then(res => this.handleResponse(res))
+      .then(res => res.json())
+      .then(res => this.handleResponse(res))
 
   }
 
@@ -48,7 +48,7 @@ class SignUp extends React.Component {
 
 
     return (
-      <Form className="signup-form" onSubmit={this.handleSubmit}>
+      <Form className="signup-form" onSubmit={this.handleSubmit} data-testid="form">
         <h1 className="font-weight-bold" id="heading">Sign Up</h1>
 
         <div className="alert alert-danger d-none" id="errorMessage">
@@ -56,7 +56,7 @@ class SignUp extends React.Component {
         </div>
         <FormGroup>
           <Label>First Name</Label>
-          <Input type="text" name="firstname" placeholder="First Name" ref={node => (this.firstname = node)}></Input>
+          <Input id="firstname" type="text" name="firstname" placeholder="First Name" ref={node => (this.firstname = node)}></Input>
         </FormGroup>
 
         <FormGroup>
@@ -66,7 +66,7 @@ class SignUp extends React.Component {
 
         <FormGroup>
           <Label>Email</Label>
-          <Input type="email" name="email" placeholder="Email" ref={node => (this.email = node)}></Input>
+          <Input id="email" type="email" name="email" placeholder="Email" ref={node => (this.email = node)}></Input>
         </FormGroup>
 
         <FormGroup>
