@@ -18,6 +18,10 @@ public class Booking {
     private int CREATEDTIMESTAMP; // when the booking was created
     @NotNull(message = "Date of when the booking will be is mandatory")
     private int BOOKINGTIMESTAMP; // when the booking is set for
-    
-    
+    @NotNull
+    private String email_CUST;
+    @NotNull
+    private String email_EMP;
+    @NotNull
+    private  String email_ADM;
 }
