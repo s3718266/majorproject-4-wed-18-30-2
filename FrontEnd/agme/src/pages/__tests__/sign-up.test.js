@@ -32,13 +32,10 @@ describe('Sign-up page test', () => {
         fname.simulate('change');
         expect(fname.instance().value).toEqual("Aldo");
     })
-    //? 4. Test the email form input
-    it("Email form input", () => {
+    //? 4. Check if there is option 
+    it("Show option is available in SignUp", () => {
         const component = mount(<SignUp />);
-        const email = component.find("input#email");
-        email.instance().value = 'aldo@gmail.com';
-        email.simulate('change');
-        expect(email.instance().value).toEqual("aldo@gmail.com");
+        expect(component.find('select').length).toBe(1);
     })
 
 })

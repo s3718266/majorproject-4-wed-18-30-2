@@ -83,7 +83,7 @@ class SignUp extends React.Component {
 
         <FormGroup>
           <Label>Last Name</Label>
-          <Input id="lastname" type="passtextword" name="lastname" placeholder="Last Name" ref={node => (this.lastname = node)}></Input>
+          <Input id="lastname" type="text" name="lastname" placeholder="Last Name" ref={node => (this.lastname = node)}></Input>
         </FormGroup>
 
         <FormGroup>

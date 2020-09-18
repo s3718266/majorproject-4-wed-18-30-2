@@ -71,7 +71,7 @@ exports[`Sign-up page test Sign-up snapshot test 1`] = `
       id="lastname"
       name="lastname"
       placeholder="Last Name"
-      type="passtextword"
+      type="text"
     />
   </div>
   <div
