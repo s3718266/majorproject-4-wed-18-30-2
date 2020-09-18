@@ -17,12 +17,12 @@ class SignUp extends React.Component {
     const node = document.getElementById('errorMessage');
     node.innerHTML = msg;
     node.classList.remove('d-none');
-    
+
   }
 
   handleResponse(resp) {
 
-    if(typeof resp.error != "undefined") {
+    if (typeof resp.error != "undefined") {
       this.showErrorModal(resp.error);
     } else if (typeof resp['auth-token'] != "undefined") {
       window.location = 'sign-in';
@@ -31,47 +31,69 @@ class SignUp extends React.Component {
   }
 
   handleSubmit(event) {
+    const selectValue = document.getElementById("exampleSelect").value
+    console.log(selectValue);
 
-    event.preventDefault();
-    const data = new URLSearchParams(new FormData(event.target));
+    if (selectValue === "Customer") {
+      event.preventDefault();
+      const data = new URLSearchParams(new FormData(event.target));
 
-    fetch(config.APP_URL + 'auth/register', {
-      method: 'POST',
-      body: data
-    })
-    .then(res => res.json())
-    .then(res => this.handleResponse(res))
+      fetch(config.APP_URL + 'auth/register', {
+        method: 'POST',
+        body: data
+      })
+        .then(res => res.json())
+        .then(res => this.handleResponse(res))
+    } else if (selectValue === "Admin") {
+      event.preventDefault();
+      const data = new URLSearchParams(new FormData(event.target));
 
+      fetch(config.APP_URL + 'auth/registeradmin', {
+        method: 'POST',
+        body: data
+      })
+        .then(res => res.json())
+        .then(res => this.handleResponse(res))
+    }
   }
 
   render() {
 
 
     return (
-      <Form className="signup-form" onSubmit={this.handleSubmit}>
+      <Form className="signup-form" onSubmit={this.handleSubmit} data-testid="form">
         <h1 className="font-weight-bold" id="heading">Sign Up</h1>
 
         <div className="alert alert-danger d-none" id="errorMessage">
 
         </div>
+
+        <FormGroup>
+          <Label for="exampleSelect">Register as</Label>
+          <Input type="select" name="select" id="exampleSelect">
+            <option value="Customer">Customer</option>
+            <option value="Admin">Admin</option>
+          </Input>
+        </FormGroup>
+
         <FormGroup>
           <Label>First Name</Label>
-          <Input type="text" name="firstname" placeholder="First Name" ref={node => (this.firstname = node)}></Input>
+          <Input id="firstname" type="text" name="firstname" placeholder="First Name" ref={node => (this.firstname = node)}></Input>
         </FormGroup>
 
         <FormGroup>
           <Label>Last Name</Label>
-          <Input type="passtextword" name="lastname" placeholder="Last Name" ref={node => (this.lastname = node)}></Input>
+          <Input id="lastname" type="text" name="lastname" placeholder="Last Name" ref={node => (this.lastname = node)}></Input>
         </FormGroup>
 
         <FormGroup>
           <Label>Email</Label>
-          <Input type="email" name="email" placeholder="Email" ref={node => (this.email = node)}></Input>
+          <Input id="email" type="email" name="email" placeholder="Email" ref={node => (this.email = node)}></Input>
         </FormGroup>
 
         <FormGroup>
           <Label>Password</Label>
-          <Input type="password" name="password" placeholder="Password" ref={node => (this.password = node)}></Input>
+          <Input id="password" type="password" name="password" placeholder="Password" ref={node => (this.password = node)}></Input>
         </FormGroup>
 
         {/*Do not forget to add this feature below after registration completed  */}

@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sign-up page test Sign-up snapshot test 1`] = `
+<form
+  className="signup-form"
+  data-testid="form"
+  onSubmit={[Function]}
+>
+  <h1
+    className="font-weight-bold"
+    id="heading"
+  >
+    Sign Up
+  </h1>
+  <div
+    className="alert alert-danger d-none"
+    id="errorMessage"
+  />
+  <div
+    className="form-group"
+  >
+    <label
+      className=""
+      htmlFor="exampleSelect"
+    >
+      Register as
+    </label>
+    <select
+      className="form-control"
+      id="exampleSelect"
+      name="select"
+    >
+      <option
+        value="Customer"
+      >
+        Customer
+      </option>
+      <option
+        value="Admin"
+      >
+        Admin
+      </option>
+    </select>
+  </div>
+  <div
+    className="form-group"
+  >
+    <label
+      className=""
+    >
+      First Name
+    </label>
+    <input
+      className="form-control"
+      id="firstname"
+      name="firstname"
+      placeholder="First Name"
+      type="text"
+    />
+  </div>
+  <div
+    className="form-group"
+  >
+    <label
+      className=""
+    >
+      Last Name
+    </label>
+    <input
+      className="form-control"
+      id="lastname"
+      name="lastname"
+      placeholder="Last Name"
+      type="text"
+    />
+  </div>
+  <div
+    className="form-group"
+  >
+    <label
+      className=""
+    >
+      Email
+    </label>
+    <input
+      className="form-control"
+      id="email"
+      name="email"
+      placeholder="Email"
+      type="email"
+    />
+  </div>
+  <div
+    className="form-group"
+  >
+    <label
+      className=""
+    >
+      Password
+    </label>
+    <input
+      className="form-control"
+      id="password"
+      name="password"
+      placeholder="Password"
+      type="password"
+    />
+  </div>
+  <button
+    aria-label={null}
+    className="btn-lg btn-success btn-block mt-5 mb-3 btn btn-secondary"
+    onClick={[Function]}
+    type="submit"
+  >
+    Sign Up
+  </button>
+  <div
+    className="text-center"
+  >
+    <a
+      href="/sign-in"
+    >
+      Sign up
+    </a>
+    <span
+      className="p-2"
+    >
+      |
+    </span>
+    <a
+      href="/"
+    >
+      Forgot Password
+    </a>
+  </div>
+</form>
+`;
