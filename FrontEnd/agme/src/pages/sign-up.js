@@ -31,17 +31,30 @@ class SignUp extends React.Component {
   }
 
   handleSubmit(event) {
+    const selectValue = document.getElementById("exampleSelect").value
+    console.log(selectValue);
 
-    event.preventDefault();
-    const data = new URLSearchParams(new FormData(event.target));
+    if (selectValue === "Customer") {
+      event.preventDefault();
+      const data = new URLSearchParams(new FormData(event.target));
 
-    fetch(config.APP_URL + 'auth/register', {
-      method: 'POST',
-      body: data
-    })
-      .then(res => res.json())
-      .then(res => this.handleResponse(res))
+      fetch(config.APP_URL + 'auth/register', {
+        method: 'POST',
+        body: data
+      })
+        .then(res => res.json())
+        .then(res => this.handleResponse(res))
+    } else if (selectValue === "Admin") {
+      event.preventDefault();
+      const data = new URLSearchParams(new FormData(event.target));
 
+      fetch(config.APP_URL + 'auth/registeradmin', {
+        method: 'POST',
+        body: data
+      })
+        .then(res => res.json())
+        .then(res => this.handleResponse(res))
+    }
   }
 
   render() {
@@ -54,6 +67,15 @@ class SignUp extends React.Component {
         <div className="alert alert-danger d-none" id="errorMessage">
 
         </div>
+
+        <FormGroup>
+          <Label for="exampleSelect">Register as</Label>
+          <Input type="select" name="select" id="exampleSelect">
+            <option value="Customer">Customer</option>
+            <option value="Admin">Admin</option>
+          </Input>
+        </FormGroup>
+
         <FormGroup>
           <Label>First Name</Label>
           <Input id="firstname" type="text" name="firstname" placeholder="First Name" ref={node => (this.firstname = node)}></Input>
@@ -61,7 +83,7 @@ class SignUp extends React.Component {
 
         <FormGroup>
           <Label>Last Name</Label>
-          <Input type="passtextword" name="lastname" placeholder="Last Name" ref={node => (this.lastname = node)}></Input>
+          <Input id="lastname" type="passtextword" name="lastname" placeholder="Last Name" ref={node => (this.lastname = node)}></Input>
         </FormGroup>
 
         <FormGroup>
@@ -71,7 +93,7 @@ class SignUp extends React.Component {
 
         <FormGroup>
           <Label>Password</Label>
-          <Input type="password" name="password" placeholder="Password" ref={node => (this.password = node)}></Input>
+          <Input id="password" type="password" name="password" placeholder="Password" ref={node => (this.password = node)}></Input>
         </FormGroup>
 
         {/*Do not forget to add this feature below after registration completed  */}
