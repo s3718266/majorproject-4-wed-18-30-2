@@ -2,7 +2,7 @@ package com.wed18302.majorproject.model;
 
 public enum UserType {
 	Customer(0),
-	Worker(1),
+	Employee(1),
 	Administrator(2);
 	
 	UserType(int value) {
