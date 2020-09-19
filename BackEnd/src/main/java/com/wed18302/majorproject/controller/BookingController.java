@@ -13,6 +13,7 @@ import com.wed18302.majorproject.model.UserType;
 import com.wed18302.majorproject.Authentication;
 import com.wed18302.majorproject.model.Booking;
 
+@RestController
 public class BookingController {
 
 	@Autowired

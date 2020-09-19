@@ -19,9 +19,10 @@ public class Booking {
     @NotNull(message = "Date of when the booking will be is mandatory")
     private int BOOKINGTIMESTAMP; // when the booking is set for
     @NotNull
-    private String email_CUST;
+    private int CUSTOMERID;
     @NotNull
-    private String email_EMP;
+    private int EMPLOYEEID;
     @NotNull
-    private  String email_ADM;
+    private int ADMINID;
+    
 }
