@@ -54,7 +54,11 @@ public class User {
     	return UserType.values()[this.USERTYPE];
     }
     
-    public void SetUserType(UserType type) {
+    public boolean hasPermission(UserType type) {
+    	return getUserType() == type;
+    }
+    
+    public void setUserType(UserType type) {
     	this.USERTYPE = type.getValue();
     }
     

@@ -11,12 +11,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class MajorProject {
 	 
+	private Authentication authentication;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(MajorProject.class, args);
 	}
 	
 	public MajorProject() {
-		
+		authentication = new Authentication();
 	}
 	
 	@Bean
@@ -33,6 +35,11 @@ public class MajorProject {
 				registry.addMapping("/**").allowedOrigins("http://localhost:3000");
  			}
 	 	};
+	}
+	
+	@Bean
+	public Authentication getAuthentication() {
+		return authentication;
 	}
 	
 	
