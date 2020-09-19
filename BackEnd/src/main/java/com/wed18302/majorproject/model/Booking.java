@@ -3,18 +3,18 @@ package com.wed18302.majorproject.model;
 import java.time.ZonedDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
 @Entity
 @Table(name = "bookings")
-@JsonRootName(value = "booking")
 public class Booking {
 
     @Id
@@ -27,26 +27,36 @@ public class Booking {
     @NotNull(message = "Date of when the booking will be is mandatory")
     @JsonProperty("bookingTimestamp")
     private String BOOKINGTIMESTAMP; // when the booking is set for
+    
     @NotNull
     @JsonProperty("customerId")
-    private int CUSTOMERID;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User CUSTOMER;
+    
     @NotNull
-    @JsonProperty("employeeId")
-    private int EMPLOYEEID;
+    @JsonProperty("workerId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User WORKER;
+    
     @NotNull
     @JsonProperty("adminId")
-    private int ADMINID;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User ADMIN;
+    
+    public int getId() {
+    	return this.ID;
+    }
     
     public Booking() {
     }
     
-    public Booking(ZonedDateTime created, ZonedDateTime booking, int customer, int employee, int admin) {
+    public Booking(ZonedDateTime created, ZonedDateTime booking, User customer, User worker, User admin) {
     	this.CREATEDTIMESTAMP = created.toString();
     	this.BOOKINGTIMESTAMP = booking.toString();
-    	this.CUSTOMERID = customer;
-    	this.EMPLOYEEID = employee;
-    	this.ADMINID = admin;
+    	this.CUSTOMER = customer;
+    	this.WORKER = worker;
+    	this.ADMIN = admin;
     }
-    
+        
     
 }

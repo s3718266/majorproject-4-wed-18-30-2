@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,9 +37,9 @@ public class BookingController {
 	
     @RequestMapping(value="/booking/create", method = RequestMethod.POST)  
     @ResponseBody  
-    public ResponseEntity<Object> bookingCreate(@RequestParam("booking-date") String bookingDate, 
+    public ResponseEntity<Object> booking_Create(@RequestParam("booking-date") String bookingDate, 
     		@RequestParam("customer-email") String customer, 
-    		@RequestParam("employee-email") String employee, 
+    		@RequestParam("worker-email") String worker, 
     		@RequestParam("admin-email") String admin ) {
     	try {
 	    	//2020-09-19T09:41:39.808756400Z[UTC]	 
@@ -46,20 +48,23 @@ public class BookingController {
 	    	ZonedDateTime booked = ZonedDateTime.parse(bookingDate);
 
 	    	User customerUser = userRepo.findByEMAIL(customer);
-	    	User employeeUser = userRepo.findByEMAIL(employee);
+	    	User workerUser = userRepo.findByEMAIL(worker);
 	    	User adminUser = userRepo.findByEMAIL(admin);
 	    	
 	    	if (customerUser == null)
 	    		throw new JsonErrorResponse("Invalid customer email was specified.");
-	    	if (employeeUser == null)
-	    		throw new JsonErrorResponse("Invalid employee email was specified.");
+	    	if (workerUser == null)
+	    		throw new JsonErrorResponse("Invalid worker email was specified.");
 	    	if (adminUser == null)
 	    		throw new JsonErrorResponse("Invalid administrator email was specified.");
-	    	
-	    	Booking booking = new Booking(now, booked, customerUser.getId(), employeeUser.getId(), adminUser.getId());
+
+	    	Booking booking = new Booking(now, booked, customerUser, workerUser, adminUser);
 	    	bookingRepo.save(booking);
-	    		    	
-			return ResponseEntity.ok(booking);
+
+	        HashMap<String, Object> hmap = new HashMap<String, Object>();
+	        hmap.put("booking", booking);
+	        
+			return ResponseEntity.ok(hmap);
     	} catch (JsonErrorResponse resp) {
     		return new ResponseEntity<Object>(resp.getMessage(), HttpStatus.OK);
     	} catch (Exception e) {
@@ -74,6 +79,74 @@ public class BookingController {
     		//return "Permissions are valid.";
     	}
     	return Authentication.INSUFFICIENT_PERMISSIONS;*/
+    }
+    
+    @RequestMapping(value="/booking/findByCustomer", method = RequestMethod.POST)  
+    @ResponseBody  
+    public ResponseEntity<Object> booking_FindByCustomer(@RequestParam("customer-email") String customer ) {
+    	try {
+	    	//2020-09-19T09:41:39.808756400Z[UTC]	 
+	    	User customerUser = userRepo.findByEMAIL(customer);
+	    	
+	    	if (customerUser == null)
+	    		throw new JsonErrorResponse("Invalid customer email was specified.");
+	    	
+	        HashMap<String, Object> hmap = new HashMap<String, Object>();
+	        List<Booking> bookings = bookingRepo.findByCUSTOMER(customerUser);
+	        for (Booking booking : bookings)
+	        	hmap.put(Integer.toString(booking.getId()), booking);
+	        
+			return ResponseEntity.ok(hmap);
+    	} catch (JsonErrorResponse resp) {
+    		return new ResponseEntity<Object>(resp.getMessage(), HttpStatus.OK);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+		return ResponseEntity.notFound().build();
+    }
+    
+    @RequestMapping(value="/booking/findById", method = RequestMethod.POST)  
+    @ResponseBody  
+    public ResponseEntity<Object> booking_FindById(@RequestParam("booking-id") int bookingId ) {
+    	try {
+	    	//2020-09-19T09:41:39.808756400Z[UTC]	 
+	    	Booking booking = bookingRepo.findByID(bookingId);
+	    	
+	    	if (booking == null)
+	    		throw new JsonErrorResponse("Booking id could not be found in the database.");
+	    	
+	        HashMap<String, Object> hmap = new HashMap<String, Object>();
+        	hmap.put(Integer.toString(booking.getId()), booking);
+	        
+			return ResponseEntity.ok(hmap);
+    	} catch (JsonErrorResponse resp) {
+    		return new ResponseEntity<Object>(resp.getMessage(), HttpStatus.OK);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+		return ResponseEntity.notFound().build();
+    }
+    
+    @RequestMapping(value="/booking/delete", method = RequestMethod.POST)  
+    @ResponseBody  
+    public ResponseEntity<Object> booking_DeleteById(@RequestParam("booking-id") int bookingId ) {
+    	try {
+	    	//2020-09-19T09:41:39.808756400Z[UTC]	 
+	    	Booking booking = bookingRepo.findByID(bookingId);
+	    	
+	    	if (booking == null)
+	    		throw new JsonErrorResponse("Booking id could not be found in the database.");
+	    	
+	    	bookingRepo.delete(booking);
+	        HashMap<String, Object> hmap = new HashMap<String, Object>();
+	        
+			return ResponseEntity.ok(hmap);
+    	} catch (JsonErrorResponse resp) {
+    		return new ResponseEntity<Object>(resp.getMessage(), HttpStatus.OK);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+		return ResponseEntity.notFound().build();
     }
 
 
