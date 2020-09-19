@@ -2,6 +2,7 @@ package com.wed18302.majorproject.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import ch.qos.logback.core.sift.AbstractAppenderFactoryUsingJoran;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wed18302.majorproject.Authentication;
 import com.wed18302.majorproject.model.User;
 import com.wed18302.majorproject.model.UserRepository;
-import com.wed18302.majorproject.model.UserType;  
+import com.wed18302.majorproject.model.UserType;
+
+import java.util.Random;
 
 @RestController  
 public class UserAuthWebController {  
@@ -88,6 +91,19 @@ public class UserAuthWebController {
 
     	return Authentication.generateErrorJson(REGISTRATION_FAILURE);
     }
+	@RequestMapping("/auth/passwordreset")
+	@ResponseBody
+    public String ForgetPassword(HttpServletRequest request){
+    	String email = request.getParameter("email");
+    	var user =userRepository.findByEMAIL(email);
+    	if(user!=null){
+			user.setPassword(String.valueOf(new Random().nextInt(100000)));
+			userRepository.save(user);
+			return ("new Password has sent to your mailbox");
+		}
+		return Authentication.generateErrorJson("Account not exists or Incorrect Email");
+	}
+
     
     public String RegisterAccount(UserType userType, String email, String rawPassword, String firstname, String lastname) {
     	// TODO: Improve validation for parameters

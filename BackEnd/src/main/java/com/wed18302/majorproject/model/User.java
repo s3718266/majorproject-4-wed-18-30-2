@@ -49,6 +49,8 @@ public class User {
     public String getPassword() {
     	return this.PASSWORD;
     }
+
+    public void setPassword(String PASSWORD){this.PASSWORD=PASSWORD;}
     
     public UserType getUserType() {    	
     	return UserType.values()[this.USERTYPE];
