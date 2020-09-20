@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.wed18302.majorproject.model.User;
 import com.wed18302.majorproject.model.UserRepository;
+import com.wed18302.majorproject.model.UserType;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -45,56 +46,44 @@ public class UserTest {
         Assert.assertTrue(userRepository.findByEMAIL(email) == null);
     }    
 
-    /*@Test
-    public void registration_testDatabaseUserSearch() {
-    	registration_testDatabaseUserAddition();
-    	
-    	String search = "paul.smith@gmail.com";
-        
-        User resultUser = null;
-        for (User user : userRepository.findAll()) {
-        	if (user.getEmail() == search) {
-        		resultUser = user;
-        		break;
-        	}
-        }
-        
-        Assert.assertTrue(resultUser.getEmail() == search);
-    }    
-    
     @Test
-    public void registration_testDatabaseUserDelete() {
-    	registration_testDatabaseUserAddition();
-    	
-    	String account = "paul.smith@gmail.com";
-    	
-        User resultUser = null;
-        for (User user : userRepository.findAll()) {
-        	if (user.getEmail() == user.getEmail()) {
-        		resultUser = user;
-        		break;
-        	}
-        }
+    public void registration_testDatabaseUserSearch() {
+    	String email = "paul.smith.test.account@gmail.com";
+        Assert.assertTrue(userRepository.findByEMAIL(email) == null);
 
-        Assert.assertTrue(resultUser != null);
-        Assert.assertTrue(userRepository.findByEMAIL(account) != null);
-        userRepository.delete(resultUser);
-        Assert.assertTrue(userRepository.findByEMAIL(account) == null);
-
-    }   
-    
+    	// save new test account to the database
+    	var testUser = new User(email, "password", 0, "Paul", "Smith");
+    	userRepository.save(testUser);
+    	
+    	// ensure we have found the same user
+        Assert.assertTrue(userRepository.findByEMAIL(email) == testUser);
+        
+    	// delete the newly added test user
+        userRepository.delete(testUser);
+        Assert.assertTrue(userRepository.findByEMAIL(email) == null);
+    }    
+        
     @Test
     // sets a target user to admin
     public void registration_testDatabaseUserSetToAdmin() {
-    	registration_testDatabaseUserAddition();
+    	String email = "paul.smith.test.account@gmail.com";
+        Assert.assertTrue(userRepository.findByEMAIL(email) == null);
+
+    	// save new test account to the database
+    	var testUser = new User(email, "password", 0, "Paul", "Smith");
+    	userRepository.save(testUser);
     	        
-        User resultUser = userRepository.findByEMAIL("paul.smith@gmail.com");
+        User resultUser = userRepository.findByEMAIL(email);
 
         UserType type = resultUser.getUserType();
         Assert.assertTrue(type == UserType.Customer);
         resultUser.SetUserType(UserType.Administrator);
         type = resultUser.getUserType();
-        Assert.assertTrue(type == UserType.Administrator);
-    }   */
+        Assert.assertTrue(userRepository.findByEMAIL(email).getUserType() == UserType.Administrator);
+
+    	// delete the newly added test user
+        userRepository.delete(testUser);
+        Assert.assertTrue(userRepository.findByEMAIL(email) == null);
+    }
     
 }
