@@ -50,8 +50,8 @@ public class UserAuthWebController {
     @RequestMapping("/auth/verifytoken")  
     @ResponseBody  
     public String loginPassword(String token) {  
-    	
-        return Authentication.decodeToken(token) ? "1" : "0";  
+    	String decoded = Authentication.decodeToken(token);
+        return decoded != null ? "1" : "0";  
     }
 
 

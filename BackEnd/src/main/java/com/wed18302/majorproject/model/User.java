@@ -1,12 +1,18 @@
 package com.wed18302.majorproject.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
@@ -42,19 +48,34 @@ public class User {
     	return this.ID;
     }
     
+    @JsonIgnore
     public String getEmail() {
     	return this.EMAIL;
     }
-    
+
+    @JsonIgnore
     public String getPassword() {
     	return this.PASSWORD;
     }
     
+    public String getFirstName() {
+    	return this.FIRSTNAME;
+    }
+
+    @JsonIgnore
+    public String getLastName() {
+    	return this.LASTNAME;
+    }
+        
     public UserType getUserType() {    	
     	return UserType.values()[this.USERTYPE];
     }
     
-    public void SetUserType(UserType type) {
+    public boolean hasPermission(UserType type) {
+    	return getUserType() == type;
+    }
+    
+    public void setUserType(UserType type) {
     	this.USERTYPE = type.getValue();
     }
     
