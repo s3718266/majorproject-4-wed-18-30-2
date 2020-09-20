@@ -9,7 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class MajorProject {
-	 
+
+	private BookingManager bookingManager;
 	private Authentication authentication;
 	
 	public static void main(String[] args) {
@@ -18,6 +19,7 @@ public class MajorProject {
 	
 	public MajorProject() {
 		authentication = new Authentication();
+		bookingManager = new BookingManager();
 	}
 	
 	@Bean
@@ -30,6 +32,11 @@ public class MajorProject {
 	@Bean
 	public Authentication getAuthentication() {
 		return authentication;
+	}
+	
+	@Bean
+	public BookingManager getBookingManager() {
+		return bookingManager;
 	}
 	
 	@Bean
