@@ -77,7 +77,7 @@ public class UserTest {
 
         UserType type = resultUser.getUserType();
         Assert.assertTrue(type == UserType.Customer);
-        resultUser.SetUserType(UserType.Administrator);
+        resultUser.setUserType(UserType.Administrator);
         type = resultUser.getUserType();
         Assert.assertTrue(userRepository.findByEMAIL(email).getUserType() == UserType.Administrator);
 
