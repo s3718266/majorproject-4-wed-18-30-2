@@ -6,21 +6,18 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.web.servlet.error.ErrorAttributes;
-import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.wed18302.majorproject.model.User;
 import com.wed18302.majorproject.model.UserRepository;
-import com.wed18302.majorproject.model.UserType;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@AutoConfigureWebTestClient
-@Profile("test")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
 public class UserTest {
 	
     @Autowired
@@ -28,16 +25,27 @@ public class UserTest {
    
     @Test
     public void registration_testDatabaseUserAddition() {
-    	var testUser = new User("paul.smith@gmail.com", "password", 0, "Paul", "Smith");
+    	int oldUserCount = userRepository.findAll().size();
+
+    	// make sure test account is not in the database already
+    	String email = "paul.smith.test.account@gmail.com";
+        Assert.assertTrue(userRepository.findByEMAIL(email) == null);
+
+    	// save new test account to the database
+    	var testUser = new User(email, "password", 0, "Paul", "Smith");
     	userRepository.save(testUser);
 
+    	// search for newly added user and make sure that it is ours
         List<User> userSearch = (List<User>) userRepository.findAll();
-        Assert.assertTrue(userSearch.size() == 1);
-        var resultUser = userSearch.get(0);
-        Assert.assertTrue(resultUser.equals(testUser));
+        Assert.assertTrue(userSearch.size() == oldUserCount + 1);
+        Assert.assertTrue(userRepository.findByEMAIL(email) != null);
+
+    	// delete the newly added test user
+        userRepository.delete(testUser);
+        Assert.assertTrue(userRepository.findByEMAIL(email) == null);
     }    
 
-    @Test
+    /*@Test
     public void registration_testDatabaseUserSearch() {
     	registration_testDatabaseUserAddition();
     	
@@ -87,6 +95,6 @@ public class UserTest {
         resultUser.SetUserType(UserType.Administrator);
         type = resultUser.getUserType();
         Assert.assertTrue(type == UserType.Administrator);
-    }    
+    }   */
     
 }
