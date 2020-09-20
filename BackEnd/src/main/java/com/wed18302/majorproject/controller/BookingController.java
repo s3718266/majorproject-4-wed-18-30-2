@@ -1,6 +1,7 @@
 package com.wed18302.majorproject.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import com.wed18302.majorproject.util.JsonErrorResponse;
 import com.wed18302.majorproject.Authentication;
 import com.wed18302.majorproject.BookingManager;
 import com.wed18302.majorproject.interfaces.GenericWebJsonResponse;
-import com.wed18302.majorproject.model.User;
+import com.wed18302.majorproject.model.Booking;
 
 @RestController
 public class BookingController {
@@ -38,7 +39,7 @@ public class BookingController {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return bookingManager.makeBooking(bookingDate, customer, worker, admin);
+				return serializeToJson(bookingManager.makeBooking(bookingDate, customer, worker, admin));
 			}
 		});
     }
@@ -50,7 +51,7 @@ public class BookingController {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return bookingManager.findForCustomer(customer);
+				return serializeToJson(bookingManager.findAllForCustomer(customer));
 			}
 		});
     }
@@ -62,7 +63,7 @@ public class BookingController {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return bookingManager.find(bookingId);
+				return serializeToJson(bookingManager.find(bookingId));
 			}
 		});
     }
@@ -74,11 +75,18 @@ public class BookingController {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return bookingManager.delete(bookingId);
+				return serializeToJson(bookingManager.delete(bookingId));
 			}
 		});
     }
 
+	public static HashMap<String, Object> serializeToJson(List<Booking> bookings) {
+        HashMap<String, Object> hmap = new HashMap<String, Object>();
+        for (Booking b : bookings)
+        	hmap.put(Integer.toString(b.getId()), b);
+        return hmap;
+	}
+    
     public ResponseEntity<Object> genericWebResponse(GenericWebJsonResponse response) {
     	try {
         	/*User user = auth.authenticate(request, UserType.Worker);
