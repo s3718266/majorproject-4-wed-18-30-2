@@ -29,7 +29,9 @@ public class BookingController {
     @RequestMapping(value="/booking/create", method = RequestMethod.POST)  
     @ResponseBody  
 	// Booking-Date-Format: 2020-09-19T09:41:39.808756400Z[UTC]
-    public ResponseEntity<Object> booking_Create(@RequestParam("booking-date") String bookingDate, 
+    public ResponseEntity<Object> booking_Create(
+    		@RequestParam("service-id") int serviceId, 
+    		@RequestParam("booking-date") String bookingDate, 
     		@RequestParam("customer-email") String customer, 
     		@RequestParam("worker-email") String worker, 
     		@RequestParam("admin-email") String admin ) {
@@ -38,11 +40,12 @@ public class BookingController {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return bookingManager.makeBooking(bookingDate, customer, worker, admin);
+				return bookingManager.makeBooking(serviceId, bookingDate, customer, worker, admin);
 			}
+			
 		});
     }
-    
+        
     @RequestMapping(value="/booking/findByCustomer", method = RequestMethod.POST)  
     @ResponseBody  
     public ResponseEntity<Object> booking_FindByCustomer(@RequestParam("customer-email") String customer ) {

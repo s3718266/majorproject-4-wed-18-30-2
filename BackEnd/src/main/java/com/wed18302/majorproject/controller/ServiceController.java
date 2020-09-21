@@ -32,6 +32,19 @@ public class ServiceController {
 			}
 		});
 	}
+    
+    @RequestMapping(value="/service/delete", method = RequestMethod.POST)  
+    @ResponseBody 
+	// addService?adminEmail={email}&type=type&name=name&description=description
+	public ResponseEntity<Object> deleteService(int serviceId) throws JsonErrorResponse {
+    	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
+
+			@Override
+			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
+				return serviceManager.deleteService(serviceId);
+			}
+		});
+	}
 
     @RequestMapping(value="/service/assignworker", method = RequestMethod.POST)  
     @ResponseBody 

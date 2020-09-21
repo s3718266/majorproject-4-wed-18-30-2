@@ -16,5 +16,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByWORKER(@Param("pUser") User worker);
     @Query("SELECT booking FROM Booking booking WHERE booking.ADMIN=(:pUser)")
     List<Booking> findByADMIN(@Param("pUser") User admin);
+    @Query("SELECT booking FROM Booking booking WHERE booking.SERVICE=(:pService)")
+    List<Booking> findbySERVICE(@Param("pService") Service service);
     
 }

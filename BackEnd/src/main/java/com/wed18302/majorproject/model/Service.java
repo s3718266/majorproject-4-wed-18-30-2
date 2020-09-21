@@ -34,7 +34,7 @@ public class Service {
     @NotNull
     @OneToOne(fetch = FetchType.EAGER)
     private User ADMIN;
-    
+        
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<User> WORKERS;
 

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wed18302.majorproject.model.Booking;
 import com.wed18302.majorproject.model.BookingRepository;
+import com.wed18302.majorproject.model.Service;
+import com.wed18302.majorproject.model.ServiceRepository;
 import com.wed18302.majorproject.model.User;
 import com.wed18302.majorproject.model.UserRepository;
 import com.wed18302.majorproject.util.JsonErrorResponse;
@@ -16,20 +18,26 @@ import com.wed18302.majorproject.util.JsonErrorResponse;
 public class BookingManager {
 
 	@Autowired
+	ServiceRepository serviceRepo;
+	
+	@Autowired
 	UserRepository userRepo;
 	
 	@Autowired
 	BookingRepository bookingRepo;
 	
-	public HashMap<String, Object> makeBooking(String bookingDate, 
+	public HashMap<String, Object> makeBooking(int serviceId, String bookingDate,
 			String customerEmail, String workerEmail, String adminEmail) throws JsonErrorResponse {
 		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"));
     	ZonedDateTime booked = ZonedDateTime.parse(bookingDate);
 
+    	Service service = serviceRepo.findByID(serviceId);
     	User customerUser = userRepo.findByEMAIL(customerEmail);
     	User workerUser = userRepo.findByEMAIL(workerEmail);
     	User adminUser = userRepo.findByEMAIL(adminEmail);
-    	
+
+    	if (service == null)
+    		throw new JsonErrorResponse("Invalid service id was specified.");
     	if (customerUser == null)
     		throw new JsonErrorResponse("Invalid customer email was specified.");
     	if (workerUser == null)
@@ -37,7 +45,7 @@ public class BookingManager {
     	if (adminUser == null)
     		throw new JsonErrorResponse("Invalid administrator email was specified.");
 
-    	Booking booking = new Booking(now, booked, customerUser, workerUser, adminUser);
+    	Booking booking = new Booking(service, now, booked, customerUser, workerUser, adminUser);
     	bookingRepo.save(booking);
 
         HashMap<String, Object> hmap = new HashMap<String, Object>();
