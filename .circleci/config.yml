@@ -1,9 +1,7 @@
 version: 2.1
-
 orbs:
-  maven: circleci/maven@0.0.12
-
+  node: circleci/node@3.0.0
 workflows:
-  maven_test:
+  node-tests:
     jobs:
-      - maven/test # checkout, build, test, and upload test results
+      - node/test
