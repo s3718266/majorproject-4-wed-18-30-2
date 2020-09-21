@@ -44,6 +44,18 @@ public class ServiceController {
 			}
 		});
 	}
+    
+    @RequestMapping(value="/service/removeworker", method = RequestMethod.POST)  
+    @ResponseBody 
+    public ResponseEntity<Object> removeWorker(int serviceId, String userEmail) throws JsonErrorResponse {
+    	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
+
+			@Override
+			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
+				return serviceManager.removeWorker(serviceId, userEmail);
+			}
+		});
+	}
 
     @RequestMapping(value="/service/getall", method = RequestMethod.POST)  
     @ResponseBody  

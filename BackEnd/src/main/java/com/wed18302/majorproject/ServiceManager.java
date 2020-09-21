@@ -53,6 +53,25 @@ public class ServiceManager {
     	return getServiceMap(service);
 	}
 	
+	public HashMap<String, Object> removeWorker(int serviceId, String userEmail)  throws JsonErrorResponse {
+		
+		Service service = serviceRepo.findByID(serviceId);
+    	User workerUser = userRepo.findByEMAIL(userEmail);
+
+    	if (service == null)
+    		throw new JsonErrorResponse("Invalid service was specified.");
+    	if (workerUser == null)
+    		throw new JsonErrorResponse("Invalid user was specified.");
+		
+    	var workers = service.getWorkers();
+    	if (workers.contains(workerUser))
+    		throw new JsonErrorResponse("Service doesn't contain worker.");
+    	
+    	workers.remove(workerUser);
+    	
+    	return getServiceMap(service);
+	}
+	
 	public HashMap<String, Object> getServices() {
         HashMap<String, Object> hmap = new HashMap<String, Object>();
         for (Service service : serviceRepo.findAll())
