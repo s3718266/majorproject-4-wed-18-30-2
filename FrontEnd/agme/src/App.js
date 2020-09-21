@@ -8,7 +8,8 @@ import Profile from './pages/profile';
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 import Logout from './pages/logout';
-import NotFoundPage from './pages/NotFoundPage' ;
+import NotFoundPage from './pages/NotFoundPage';
+import ForgotPassword from './pages/forgot-password';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/profile" component={Profile} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/logout" component={Logout} />
+            <Route path="/forgot-password" component={ForgotPassword} />
             <Route component={NotFoundPage} />
 
           </Switch>

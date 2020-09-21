@@ -71,7 +71,7 @@ class SignIn extends React.Component {
         <div className="text-center">
           <a href="/sign-up">Sign up</a>
           <span className="p-2">|</span>
-          <a href="/">Forgot Password</a>
+          <a href="/forgot-password">Forgot Password</a>
         </div>
 
       </Form>
