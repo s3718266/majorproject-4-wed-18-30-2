@@ -1,4 +1,5 @@
 package com.wed18302.majorproject.model;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -24,8 +26,8 @@ public class Service {
     @NotNull(message = "Required")
     private String NAME;
 
-    @NotNull
-    private  int ADMIN;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User ADMIN;
 
     @NotNull
     private String TYPE;
@@ -35,7 +37,7 @@ public class Service {
     public Service() {
     }
 
-    public Service(int admin,String type,String name,String description) {
+    public Service(User admin, String type, String name, String description) {
         NAME = name;
         ADMIN = admin;
         TYPE = type;
@@ -46,7 +48,7 @@ public class Service {
         return NAME;
     }
 
-    public int getADMIN() {
+    public User getADMIN() {
         return ADMIN;
     }
 
