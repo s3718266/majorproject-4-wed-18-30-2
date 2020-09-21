@@ -44,12 +44,7 @@ public class Booking {
     @JsonProperty("workerId")
     @ManyToOne(fetch = FetchType.EAGER)
     private User WORKER;
-    
-    @NotNull
-    @JsonProperty("adminId")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User ADMIN;
-    
+        
     public int getId() {
     	return this.ID;
     }
@@ -57,13 +52,12 @@ public class Booking {
     public Booking() {
     }
     
-    public Booking(Service service, ZonedDateTime created, ZonedDateTime booking, User customer, User worker, User admin) {
+    public Booking(Service service, ZonedDateTime created, ZonedDateTime booking, User customer, User worker) {
     	this.SERVICE = service;
     	this.CREATEDTIMESTAMP = created.toString();
     	this.BOOKINGTIMESTAMP = booking.toString();
     	this.CUSTOMER = customer;
     	this.WORKER = worker;
-    	this.ADMIN = admin;
     }
             
 }

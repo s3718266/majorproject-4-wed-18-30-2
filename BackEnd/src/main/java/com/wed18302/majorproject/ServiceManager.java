@@ -26,12 +26,12 @@ public class ServiceManager {
 	@Autowired
 	ServiceRepository serviceRepo;
 	
-	public HashMap<String, Object> makeService(String adminEmail, String type, String name, String description) throws JsonErrorResponse {
+	public HashMap<String, Object> makeService(int adminId, String type, String name, String description) throws JsonErrorResponse {
 		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"));
 
-    	User adminUser = userRepo.findByEMAIL(adminEmail);
+    	User adminUser = userRepo.findByID(adminId);
     	
-    	if (adminEmail == null)
+    	if (adminUser == null)
     		throw new JsonErrorResponse("Invalid admin email was specified.");
 
     	Service service = new Service(now.toString(), adminUser, type, name, description);
@@ -40,10 +40,10 @@ public class ServiceManager {
         return getServiceMap(service);
 	}
 	
-	public HashMap<String, Object> assignWorker(int serviceId, String userEmail)  throws JsonErrorResponse {
+	public HashMap<String, Object> assignWorker(int serviceId, int userId)  throws JsonErrorResponse {
 		
 		Service service = serviceRepo.findByID(serviceId);
-    	User workerUser = userRepo.findByEMAIL(userEmail);
+    	User workerUser = userRepo.findByID(userId);
 
     	if (service == null)
     		throw new JsonErrorResponse("Invalid service was specified.");
@@ -59,10 +59,10 @@ public class ServiceManager {
     	return getServiceMap(service);
 	}
 	
-	public HashMap<String, Object> removeWorker(int serviceId, String userEmail)  throws JsonErrorResponse {
+	public HashMap<String, Object> removeWorker(int serviceId, int userId)  throws JsonErrorResponse {
 		
 		Service service = serviceRepo.findByID(serviceId);
-    	User workerUser = userRepo.findByEMAIL(userEmail);
+    	User workerUser = userRepo.findByID(userId);
 
     	if (service == null)
     		throw new JsonErrorResponse("Invalid service was specified.");

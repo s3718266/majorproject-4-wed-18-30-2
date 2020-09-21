@@ -27,25 +27,24 @@ public class BookingManager {
 	BookingRepository bookingRepo;
 	
 	public HashMap<String, Object> makeBooking(int serviceId, String bookingDate,
-			String customerEmail, String workerEmail, String adminEmail) throws JsonErrorResponse {
+			int customerId, int workerId) throws JsonErrorResponse {
 		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"));
     	ZonedDateTime booked = ZonedDateTime.parse(bookingDate);
 
     	Service service = serviceRepo.findByID(serviceId);
-    	User customerUser = userRepo.findByEMAIL(customerEmail);
-    	User workerUser = userRepo.findByEMAIL(workerEmail);
-    	User adminUser = userRepo.findByEMAIL(adminEmail);
+    	User customerUser = userRepo.findByID(customerId);
+    	User workerUser = userRepo.findByID(workerId);
 
     	if (service == null)
     		throw new JsonErrorResponse("Invalid service id was specified.");
     	if (customerUser == null)
-    		throw new JsonErrorResponse("Invalid customer email was specified.");
+    		throw new JsonErrorResponse("Invalid customer id was specified.");
     	if (workerUser == null)
-    		throw new JsonErrorResponse("Invalid worker email was specified.");
-    	if (adminUser == null)
-    		throw new JsonErrorResponse("Invalid administrator email was specified.");
+    		throw new JsonErrorResponse("Invalid worker id was specified.");
+    	if (!service.getWorkers().contains(workerUser))
+    		throw new JsonErrorResponse("Worker does not work for service.");
 
-    	Booking booking = new Booking(service, now, booked, customerUser, workerUser, adminUser);
+    	Booking booking = new Booking(service, now, booked, customerUser, workerUser);
     	bookingRepo.save(booking);
 
         HashMap<String, Object> hmap = new HashMap<String, Object>();
@@ -66,11 +65,11 @@ public class BookingManager {
     	return hmap;
 	}
 	
-	public HashMap<String, Object> findForCustomer(String customerEmail) throws JsonErrorResponse {
-    	User customerUser = userRepo.findByEMAIL(customerEmail);
+	public HashMap<String, Object> findForCustomer(int customerId) throws JsonErrorResponse {
+    	User customerUser = userRepo.findByID(customerId);
     	
     	if (customerUser == null)
-    		throw new JsonErrorResponse("Invalid customer email was specified.");
+    		throw new JsonErrorResponse("Invalid customer id was specified.");
     	
         HashMap<String, Object> hmap = new HashMap<String, Object>();
         List<Booking> bookings = bookingRepo.findByCUSTOMER(customerUser);

@@ -3,7 +3,6 @@ package com.wed18302.majorproject.controller;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,15 +31,14 @@ public class BookingController {
     public ResponseEntity<Object> booking_Create(
     		@RequestParam("service-id") int serviceId, 
     		@RequestParam("booking-date") String bookingDate, 
-    		@RequestParam("customer-email") String customer, 
-    		@RequestParam("worker-email") String worker, 
-    		@RequestParam("admin-email") String admin ) {
+    		@RequestParam("customer-id") int customer, 
+    		@RequestParam("worker-id") int worker ) {
 
     	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return bookingManager.makeBooking(serviceId, bookingDate, customer, worker, admin);
+				return bookingManager.makeBooking(serviceId, bookingDate, customer, worker);
 			}
 			
 		});
@@ -48,12 +46,12 @@ public class BookingController {
         
     @RequestMapping(value="/booking/findByCustomer", method = RequestMethod.POST)  
     @ResponseBody  
-    public ResponseEntity<Object> booking_FindByCustomer(@RequestParam("customer-email") String customer ) {
+    public ResponseEntity<Object> booking_FindByCustomer(@RequestParam("customer-id") int customerId ) {
     	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return bookingManager.findForCustomer(customer);
+				return bookingManager.findForCustomer(customerId);
 			}
 		});
     }

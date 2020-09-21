@@ -23,12 +23,12 @@ public class ServiceController {
     @RequestMapping(value="/service/add", method = RequestMethod.POST)  
     @ResponseBody 
 	// addService?adminEmail={email}&type=type&name=name&description=description
-	public ResponseEntity<Object> addService(String adminEmail, String type, String name, String description) throws JsonErrorResponse {
+	public ResponseEntity<Object> addService(int adminId, String type, String name, String description) throws JsonErrorResponse {
     	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return serviceManager.makeService(adminEmail, type, name, description);
+				return serviceManager.makeService(adminId, type, name, description);
 			}
 		});
 	}
@@ -48,24 +48,24 @@ public class ServiceController {
 
     @RequestMapping(value="/service/assignworker", method = RequestMethod.POST)  
     @ResponseBody 
-    public ResponseEntity<Object> assignWorker(int serviceId, String userEmail) throws JsonErrorResponse {
+    public ResponseEntity<Object> assignWorker(int serviceId, int userId) throws JsonErrorResponse {
     	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return serviceManager.assignWorker(serviceId, userEmail);
+				return serviceManager.assignWorker(serviceId, userId);
 			}
 		});
 	}
     
     @RequestMapping(value="/service/removeworker", method = RequestMethod.POST)  
     @ResponseBody 
-    public ResponseEntity<Object> removeWorker(int serviceId, String userEmail) throws JsonErrorResponse {
+    public ResponseEntity<Object> removeWorker(int serviceId, int userId) throws JsonErrorResponse {
     	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return serviceManager.removeWorker(serviceId, userEmail);
+				return serviceManager.removeWorker(serviceId, userId);
 			}
 		});
 	}
