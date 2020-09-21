@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wed18302.majorproject.util.JsonErrorResponse;
+import com.wed18302.majorproject.util.WebResponseUtil;
 import com.wed18302.majorproject.Authentication;
 import com.wed18302.majorproject.BookingManager;
 import com.wed18302.majorproject.interfaces.GenericWebJsonResponse;
@@ -33,7 +34,7 @@ public class BookingController {
     		@RequestParam("worker-email") String worker, 
     		@RequestParam("admin-email") String admin ) {
 
-    	return genericWebResponse(new GenericWebJsonResponse() {
+    	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
@@ -45,7 +46,7 @@ public class BookingController {
     @RequestMapping(value="/booking/findByCustomer", method = RequestMethod.POST)  
     @ResponseBody  
     public ResponseEntity<Object> booking_FindByCustomer(@RequestParam("customer-email") String customer ) {
-    	return genericWebResponse(new GenericWebJsonResponse() {
+    	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
@@ -57,7 +58,7 @@ public class BookingController {
     @RequestMapping(value="/booking/findById", method = RequestMethod.POST)  
     @ResponseBody  
     public ResponseEntity<Object> booking_FindById(@RequestParam("booking-id") int bookingId ) {
-    	return genericWebResponse(new GenericWebJsonResponse() {
+    	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
@@ -69,7 +70,7 @@ public class BookingController {
     @RequestMapping(value="/booking/delete", method = RequestMethod.POST)  
     @ResponseBody  
     public ResponseEntity<Object> booking_DeleteById(@RequestParam("booking-id") int bookingId ) {
-    	return genericWebResponse(new GenericWebJsonResponse() {
+    	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
@@ -78,22 +79,6 @@ public class BookingController {
 		});
     }
 
-    public ResponseEntity<Object> genericWebResponse(GenericWebJsonResponse response) {
-    	try {
-        	/*User user = auth.authenticate(request, UserType.Worker);
-        	if (user != null) {
-        		
-        		//return "Permissions are valid.";
-        	}
-        	throw new JsonErrorResponse(Authentication.INSUFFICIENT_PERMISSIONS);*/
-			return ResponseEntity.ok(response.getResponse());
-    	} catch (JsonErrorResponse resp) {
-    		return new ResponseEntity<Object>(resp.getMessage(), HttpStatus.OK);
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
-		return ResponseEntity.notFound().build();
-    }
     
 
 }
