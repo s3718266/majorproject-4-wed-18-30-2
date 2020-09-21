@@ -1,20 +1,19 @@
 package com.wed18302.majorproject.model;
 
-import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "services")
 public class Service {
@@ -28,6 +27,9 @@ public class Service {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User ADMIN;
+    
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<User> WORKERS;
 
     @NotNull
     private String TYPE;

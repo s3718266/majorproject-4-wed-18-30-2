@@ -15,7 +15,6 @@ import com.wed18302.majorproject.util.JsonErrorResponse;
 import com.wed18302.majorproject.Authentication;
 import com.wed18302.majorproject.BookingManager;
 import com.wed18302.majorproject.interfaces.GenericWebJsonResponse;
-import com.wed18302.majorproject.model.User;
 
 @RestController
 public class BookingController {
