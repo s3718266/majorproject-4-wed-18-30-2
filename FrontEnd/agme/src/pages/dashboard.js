@@ -3,55 +3,77 @@ import '../App.css';
 import { Button, Modal } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import config from '../Constants';
-import Booking from './modals/booking' ;
+import Booking from './modals/booking';
 
 class Dashboard extends React.Component {
 
   constructor(props) {
-    super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-    this.state = { //state is by default an object
-      datas: [
-        { id: 1, name: 'Hairdresser', provider: 'Hair Studio', price:"$10" },
-        { id: 2, name: 'Lawn Mowner', provider: 'Simon & Co', price:"$15/h" },
-        { id: 3, name: 'Dog Walker', provider: 'John', price:"$10/h" }
-      ]
+    super(props)
+  }
+
+  getServices() {
+
+    fetch(config.APP_URL + 'service/getall', {
+      method: 'POST',
+      body: ""
+    })
+      .then(res => res.json())
+      .then(res => this.populateServices(res))
+
+  }
+
+  populateServices(res) {
+
+    var parsedData = {};
+    var index;
+    var len;
+
+    for (var k of Object.values(res)) {
+      parsedData[k.id] = {
+        "id": k.id,
+        "name": k.name,
+        "type": k.type,
+        "workers": k.workers
+      };
     }
+
+    window.datas = parsedData;
+
+    this.renderTableData();
+
   }
+
   renderTableData() {
-    return this.state.datas.map((data, index) => {
-      const { id, name, provider,price } = data
-      return (
-        <tr key={id}>
-          <td>{id}</td>
-          <td>{name}</td>
-          <td>{provider}</td>
-          <td>{price}</td>
-        </tr>
-      )
-    })
+
+    for (var k of Object.values(window.datas)) {
+
+      const { id, type, name } = k
+
+      document.getElementById('tblData').innerHTML += "<tr>" +
+      "<td>" + id + "</td>" + 
+      "<td>" + type + "</td>" + 
+      "<td>" + name + "</td>" + 
+      "</tr>";
+
+    };
+
   }
 
-  renderTableHeader() {
-    let header = Object.keys(this.state.datas[0])
-    return header.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
-    })
+  componentWillMount() {
+    this.getServices();
   }
-
-
-
-
-
-
 
   render() {
     return (
       <div>
         <h1 id='title'>List of services</h1>
         <table id='datas'>
-          <tbody>
-            <tr>{this.renderTableHeader()}</tr>
-            {this.renderTableData()}
+          <tbody id="tblData">
+            <tr>
+              <th>ID</th>
+              <th>Type</th>
+              <th>Name</th>
+            </tr>
           </tbody>
         </table>
         <br />
