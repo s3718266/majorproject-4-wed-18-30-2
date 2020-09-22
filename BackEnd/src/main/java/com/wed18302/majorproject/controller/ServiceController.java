@@ -1,6 +1,7 @@
 package com.wed18302.majorproject.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wed18302.majorproject.ServiceManager;
 import com.wed18302.majorproject.interfaces.GenericWebJsonResponse;
+import com.wed18302.majorproject.model.Booking;
+import com.wed18302.majorproject.model.Service;
 import com.wed18302.majorproject.util.JsonErrorResponse;
 import com.wed18302.majorproject.util.WebResponseUtil;
 
@@ -28,7 +31,7 @@ public class ServiceController {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return serviceManager.makeService(adminId, type, name, description);
+				return serializeToJson(serviceManager.makeService(adminId, type, name, description));
 			}
 		});
 	}
@@ -81,5 +84,11 @@ public class ServiceController {
 			}
 		});
 	}
-	
+
+	public static HashMap<String, Object> serializeToJson(List<Service> services) {
+        HashMap<String, Object> hmap = new HashMap<String, Object>();
+        for (Service s : services)
+        	hmap.put(Integer.toString(s.getId()), s);
+        return hmap;
+	}
 }

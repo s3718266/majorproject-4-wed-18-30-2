@@ -1,6 +1,7 @@
 package com.wed18302.majorproject.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import com.wed18302.majorproject.util.WebResponseUtil;
 import com.wed18302.majorproject.Authentication;
 import com.wed18302.majorproject.BookingManager;
 import com.wed18302.majorproject.interfaces.GenericWebJsonResponse;
+import com.wed18302.majorproject.model.Booking;
 
 @RestController
 public class BookingController {
@@ -38,7 +40,7 @@ public class BookingController {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return bookingManager.makeBooking(serviceId, bookingDate, customer, worker);
+				return serializeToJson(bookingManager.makeBooking(serviceId, bookingDate, customer, worker));
 			}
 			
 		});
@@ -51,7 +53,7 @@ public class BookingController {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return bookingManager.findForCustomer(customerId);
+				return serializeToJson(bookingManager.findForCustomer(customerId));
 			}
 		});
     }
@@ -63,7 +65,7 @@ public class BookingController {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return bookingManager.find(bookingId);
+				return serializeToJson(bookingManager.find(bookingId));
 			}
 		});
     }
@@ -75,11 +77,18 @@ public class BookingController {
 
 			@Override
 			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
-				return bookingManager.delete(bookingId);
+				return serializeToJson(bookingManager.delete(bookingId));
 			}
 		});
     }
 
+	public static HashMap<String, Object> serializeToJson(List<Booking> bookings) {
+        HashMap<String, Object> hmap = new HashMap<String, Object>();
+        for (Booking b : bookings)
+        	hmap.put(Integer.toString(b.getId()), b);
+        return hmap;
+	}
+    
     
 
 }

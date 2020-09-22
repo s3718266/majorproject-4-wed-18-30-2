@@ -2,6 +2,7 @@ package com.wed18302.majorproject;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class ServiceManager {
 	@Autowired
 	ServiceRepository serviceRepo;
 	
-	public HashMap<String, Object> makeService(int adminId, String type, String name, String description) throws JsonErrorResponse {
+	public List<Service> makeService(int adminId, String type, String name, String description) throws JsonErrorResponse {
 		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"));
 
     	User adminUser = userRepo.findByID(adminId);
@@ -37,7 +38,9 @@ public class ServiceManager {
     	Service service = new Service(now.toString(), adminUser, type, name, description);
     	serviceRepo.save(service);
 
-        return getServiceMap(service);
+        List<Service> list = new ArrayList<Service>();
+        list.add(service);
+        return list;
 	}
 	
 	public HashMap<String, Object> assignWorker(int serviceId, int userId)  throws JsonErrorResponse {

@@ -1,5 +1,6 @@
 package com.wed18302.majorproject.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -53,6 +54,7 @@ public class Service {
         ADMIN = admin;
         TYPE = type;
         DESCRIPTION = description;
+        WORKERS = new ArrayList<User>();
     }
 
     public int getId() {

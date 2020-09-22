@@ -1,7 +1,29 @@
-version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-workflows:
-  node-tests:
-    jobs:
-      - node/test
+orbs: # declare what orbs we are going to use
+  node: circleci/node@2.0.2 # the node orb provides common node-related configuration
+
+version: 2.1 # using 2.1 provides access to orbs and other features
+
+jobs:
+  build: # Build FrontEnd 
+    docker:
+      - image: circleci/node:7.10
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "package-lock.json" }}
+            - v2-dependencies-
+      - run:
+          name: Build AGME 
+          command: |
+            pwd && ls 
+            cd FrontEnd/agme
+            pwd && ls
+            npm install
+            pwd && ls
+
+      - save_cache:
+          paths:
+            - ~/repo/FrontEnd/agme/node_modules
+          key: v2-dependencies-{{ checksum "package-lock.json" }}
