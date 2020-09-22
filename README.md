@@ -3,10 +3,10 @@
 # Group 02
 
 ### Milestone 1
-Milestone 1 17/08/2020 Documentation [Here](majorproject-4-wed-18-30-2/docs/Sprints/Sprint0) 
+17/08/2020 Milestone 1 Documentation [Here](majorproject-4-wed-18-30-2/docs/Sprints/Sprint0) 
 
 ### Milestone 2
-Milestone 2 22/09/2020 Documentation [Here](majorproject-4-wed-18-30-2/docs/Sprints/Sprint2)
+22/09/2020 Milestone 2 Documentation [Here](majorproject-4-wed-18-30-2/docs/Sprints/Sprint2)
 
 ## Members
 * Irvine, Aldo (s3692192)
@@ -28,4 +28,4 @@ Milestone 2 22/09/2020 Documentation [Here](majorproject-4-wed-18-30-2/docs/Spri
 
 ## Code documentation
 
-unit tests for the backend can be found [Here](majorproject-4-wed-18-30-2/BackEnd/src/main/java/com/wed18302/majorproject/tests/)
+Unit tests for the backend can be found [Here](majorproject-4-wed-18-30-2/BackEnd/src/main/java/com/wed18302/majorproject/tests/)
