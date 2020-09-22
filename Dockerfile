@@ -5,5 +5,4 @@ ADD known_hosts /usr/.github/workflows/docker-image.yml
 RUN mkdir /opt/majorproject-4-wed-18-30-2
 RUN cd /opt/majorproject-4-wed-18-30-2
 RUN git clone git@github.com:RMIT-SEPT/majorproject-4-wed-18-30-2.git
-ADD entry.sh 241 /etc/
-ENTRYPOINT /etc/entry.sh
+ENTRYPOINT ["/entrypoint.sh"]
