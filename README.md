@@ -14,6 +14,7 @@
 * Pekaj, Aleksander (s3601291)
 * Thompson, Amy (s3718266)
 * Dao, Richard (s3544270)
+* Shiou-Ping Chu (s3734303)
 
 ## Records
 
