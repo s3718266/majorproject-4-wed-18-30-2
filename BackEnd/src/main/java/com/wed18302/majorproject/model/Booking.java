@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -30,6 +31,11 @@ public class Booking {
     private String BOOKINGTIMESTAMP; // when the booking is set for
     
     @NotNull
+    @JsonProperty("serviceId")
+    @OneToOne(fetch = FetchType.EAGER)
+    private Service SERVICE;
+    
+    @NotNull
     @JsonProperty("customerId")
     @ManyToOne(fetch = FetchType.EAGER)
     private User CUSTOMER;
@@ -38,12 +44,7 @@ public class Booking {
     @JsonProperty("workerId")
     @ManyToOne(fetch = FetchType.EAGER)
     private User WORKER;
-    
-    @NotNull
-    @JsonProperty("adminId")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User ADMIN;
-    
+        
     public int getId() {
     	return this.ID;
     }
@@ -51,12 +52,12 @@ public class Booking {
     public Booking() {
     }
     
-    public Booking(ZonedDateTime created, ZonedDateTime booking, User customer, User worker, User admin) {
+    public Booking(Service service, ZonedDateTime created, ZonedDateTime booking, User customer, User worker) {
+    	this.SERVICE = service;
     	this.CREATEDTIMESTAMP = created.toString();
     	this.BOOKINGTIMESTAMP = booking.toString();
     	this.CUSTOMER = customer;
     	this.WORKER = worker;
-    	this.ADMIN = admin;
     }
             
 }
