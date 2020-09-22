@@ -1,8 +1,11 @@
 # RMIT SEPT 2020 Major Project
 
 # Group 02
+
+## Milestone 1
 17/08/2020 - Milestone 1 Documentation [Here](/docs/Sprints/Sprint 0) 
-*
+
+## Milestone 2
 22/09/2020 - Milestone 2 Documentation [Here](/docs/Sprints/Sprint 2)
 
 ## Members
