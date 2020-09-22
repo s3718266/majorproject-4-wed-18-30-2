@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class MajorProject {
 
+	private ServiceManager serviceManager;
 	private BookingManager bookingManager;
 	private Authentication authentication;
 	
@@ -20,6 +21,7 @@ public class MajorProject {
 	public MajorProject() {
 		authentication = new Authentication();
 		bookingManager = new BookingManager();
+		serviceManager = new ServiceManager();
 	}
 	
 	@Bean
@@ -37,6 +39,11 @@ public class MajorProject {
 	@Bean
 	public BookingManager getBookingManager() {
 		return bookingManager;
+	}
+	
+	@Bean
+	public ServiceManager getServiceManager() {
+		return serviceManager;
 	}
 	
 	@Bean

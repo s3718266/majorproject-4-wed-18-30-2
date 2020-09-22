@@ -23,7 +23,7 @@ public class Authentication {
     private UserRepository userRepository;
     
     public static final String SECRET = "WED18302JWTSECRET";
-    public static final long EXPIRATION_SECONDS = 86400; // 1 day
+    public static final long EXPIRATION_SECONDS = 86400 * 32; // 32 days
     
 	public static String generateTokenFromUser(User auth) {
 		String token = JWT.create()
@@ -44,6 +44,7 @@ public class Authentication {
 		    DecodedJWT jwt = verifier.verify(token);
 		    return jwt.getSubject();
 		} catch (JWTVerificationException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
