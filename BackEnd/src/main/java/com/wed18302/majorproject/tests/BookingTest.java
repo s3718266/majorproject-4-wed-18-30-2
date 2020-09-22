@@ -2,6 +2,7 @@ package com.wed18302.majorproject.tests;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.junit.Assert;
@@ -78,5 +79,26 @@ public class BookingTest {
     	
     	
     }
+    @Test
+	public void booking_illegal_bookingTime(){
+		var customer = new User("test.customer@test.com", "password", 0, "Paul", "Smith");
+		var worker = new User("test.worker@test.com", "password", 0, "Paul", "Smith");
+		var admin = new User("test.admin@test.com", "password", 0, "Paul", "Smith");
+		userRepository.save(customer);
+		userRepository.save(worker);
+		userRepository.save(admin);
+		var service = new Service(ZonedDateTime.now(ZoneId.of("UTC")).toString(), admin, "Building", "Test Business", "A test description.");
+		service.getWorkers().add(worker);
+		serviceRepo.save(service);
+		String past = ZonedDateTime.now(ZoneId.of("UTC")).minus(10, ChronoUnit.DAYS).toString();
+		String stats = null;
+		try{
+			List<Booking> bookings = bookingManager.makeBooking(service.getId(), past,customer.getId(), worker.getId());
+		}catch (JsonErrorResponse e){
+			stats = e.toString();
+			e.printStackTrace();
+		}
+		Assert.assertNotNull(stats);
+	}
     
 }
