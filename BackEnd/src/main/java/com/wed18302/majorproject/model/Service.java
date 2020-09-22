@@ -1,20 +1,20 @@
 package com.wed18302.majorproject.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -35,8 +35,11 @@ public class Service {
     @NotNull
     @OneToOne(fetch = FetchType.EAGER)
     private User ADMIN;
-        
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+    @ManyToMany
+    @JoinTable(name = "worker_services", 
+	  joinColumns = @JoinColumn(name = "service_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> WORKERS;
 
     @NotNull
@@ -54,7 +57,6 @@ public class Service {
         ADMIN = admin;
         TYPE = type;
         DESCRIPTION = description;
-        WORKERS = new ArrayList<User>();
     }
 
     public int getId() {
@@ -72,7 +74,8 @@ public class Service {
     public String getType() {
         return TYPE;
     }
-    
+
+    @JsonIgnore
     public List<User> getWorkers() {
     	return this.WORKERS;
     }

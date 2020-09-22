@@ -1,12 +1,18 @@
 package com.wed18302.majorproject.model;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -32,7 +38,10 @@ public class User {
     private String LASTNAME;
     
     private int USERTYPE;
- 
+
+    @ManyToMany(mappedBy = "WORKERS")
+    private List<Service> SERVICES;
+    
     public User() {
     }
     
@@ -66,6 +75,11 @@ public class User {
     public String getLastName() {
     	return this.LASTNAME;
     }
+
+    @JsonIgnore
+    public List<Service> getWorkerServices() {
+    	return this.SERVICES;
+    }
         
     public UserType getUserType() {    	
     	return UserType.values()[this.USERTYPE];
@@ -78,7 +92,7 @@ public class User {
     public void setUserType(UserType type) {
     	this.USERTYPE = type.getValue();
     }
-    
+        
     @Override
     public String toString() {
     	return String.format("ID: %d, Email: %s", this.ID, this.EMAIL);
