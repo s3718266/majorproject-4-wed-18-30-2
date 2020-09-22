@@ -1,17 +1,24 @@
 package com.wed18302.majorproject.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wed18302.majorproject.Authentication;
+import com.wed18302.majorproject.interfaces.GenericWebJsonResponse;
 import com.wed18302.majorproject.model.User;
 import com.wed18302.majorproject.model.UserRepository;
-import com.wed18302.majorproject.model.UserType;  
+import com.wed18302.majorproject.model.UserType;
+import com.wed18302.majorproject.util.JsonErrorResponse;
+import com.wed18302.majorproject.util.WebResponseUtil;  
 
 @RestController  
 public class UserAuthWebController {  
@@ -47,6 +54,32 @@ public class UserAuthWebController {
         return Authentication.generateErrorJson("Account not found.");  
     }
     
+    @RequestMapping(value="/auth/getuser", method = RequestMethod.POST)  
+    @ResponseBody 
+	// /auth/getuser?token={token}
+	public ResponseEntity<Object> getUserInfo(String token) throws JsonErrorResponse {
+    	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
+
+			@Override
+			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
+				if (token == null || token.length() == 0)
+		    		throw new JsonErrorResponse("Invalid token specified.");
+				
+		    	String decoded = Authentication.decodeToken(token);
+		    	if (decoded == null)
+		    		throw new JsonErrorResponse("Account not found.");
+		    	
+		    	User user = userRepository.findByEMAIL(decoded);
+		    	if (user == null)
+		    		throw new JsonErrorResponse("Account no longer exists in database.");
+		    	
+		        HashMap<String, Object> hmap = new HashMap<String, Object>();
+		        hmap.put(Integer.toString(user.getId()), user);
+		        return hmap;
+			}
+		});
+	}
+        
     @RequestMapping("/auth/verifytoken")  
     @ResponseBody  
     public String loginPassword(String token) {  
