@@ -88,9 +88,11 @@ public class ServiceTest {
         serviceRepository.save(new Service(time_str,userRepository.findByEMAIL("admin.1@test.com"),"type1","foo","bar"));
 
         try{
-            serviceManager.assignWorker(serviceRepository.findByName("foo").getId(),userRepository.findByEMAIL("worker.1@test.com").getId());
-            serviceManager.assignWorker(serviceRepository.findByName("foo").getId(),userRepository.findByEMAIL("worker.2@test.com").getId());
-            serviceManager.removeWorker(serviceRepository.findByName("foo").getId(),userRepository.findByEMAIL("worker.1@test.com").getId());
+        	Service service = serviceRepository.findByName("foo");
+        	Assert.assertTrue(service != null);
+            serviceManager.assignWorker(service.getId(),userRepository.findByEMAIL("worker.1@test.com").getId());
+            serviceManager.assignWorker(service.getId(),userRepository.findByEMAIL("worker.2@test.com").getId());
+            serviceManager.removeWorker(service.getId(),userRepository.findByEMAIL("worker.1@test.com").getId());
         }catch (JsonErrorResponse e){
 
             e.printStackTrace();
