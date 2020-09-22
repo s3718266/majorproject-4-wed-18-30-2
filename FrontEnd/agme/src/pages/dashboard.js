@@ -1,33 +1,88 @@
 import React from 'react';
 import '../App.css';
-import {Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Modal } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import config from '../Constants';
+import Booking from './modals/booking';
 
-function Dashboard() {
-  return (
+class Dashboard extends React.Component {
 
-    <Form className="dashboard-form">
+  constructor(props) {
+    super(props)
+  }
 
-      <h1 className="font-weight-bold" id="heading">Dashboard</h1>
+  getServices() {
 
-      <FormGroup>
-        <Label>First Name</Label>
-        <Input type="text" placeholder="First Name" disabled></Input>
-      </FormGroup>
+    fetch(config.APP_URL + 'service/getall', {
+      method: 'POST',
+      body: ""
+    })
+      .then(res => res.json())
+      .then(res => this.populateServices(res))
 
-      <FormGroup>
-        <Label>Last Name</Label>
-        <Input type="text" placeholder="Last Name" disabled></Input>
-      </FormGroup>
+  }
 
-      <FormGroup>
-        <Label>Email</Label>
-        <Input type="email" placeholder="Email" disabled></Input>
-      </FormGroup>
+  populateServices(res) {
 
-      
-    </Form>
-  );
+    var parsedData = {};
+    var index;
+    var len;
+
+    for (var k of Object.values(res)) {
+      parsedData[k.id] = {
+        "id": k.id,
+        "name": k.name,
+        "type": k.type,
+        "workers": k.workers
+      };
+    }
+
+    window.datas = parsedData;
+
+    this.renderTableData();
+
+  }
+
+  renderTableData() {
+
+    for (var k of Object.values(window.datas)) {
+
+      const { id, type, name } = k
+
+      document.getElementById('tblData').innerHTML += "<tr>" +
+      "<td>" + id + "</td>" + 
+      "<td>" + type + "</td>" + 
+      "<td>" + name + "</td>" + 
+      "</tr>";
+
+    };
+
+  }
+
+  componentWillMount() {
+    this.getServices();
+  }
+
+  render() {
+    return (
+      <div>
+        <h1 id='title'>List of services</h1>
+        <table id='datas'>
+          <tbody id="tblData">
+            <tr>
+              <th>ID</th>
+              <th>Type</th>
+              <th>Name</th>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+
+        <Booking />
+      </div>
+    )
+  }
+
 }
 
 export default Dashboard;
