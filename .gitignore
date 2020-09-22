@@ -5,3 +5,4 @@ terraform.tfstate
 terraform.tfstate.backup
 tmp/
 .DS_Store*
+BackEnd/src/main/resources/application-prod.properties
