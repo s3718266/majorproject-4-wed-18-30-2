@@ -3,10 +3,10 @@
 # Group 02
 
 ### Milestone 1
-17/08/2020 Milestone 1 Documentation [Here](majorproject-4-wed-18-30-2/docs/Sprints/Sprint0) 
+17/08/2020 Milestone 1 Documentation [Here](https://github.com/RMIT-SEPT/majorproject-4-wed-18-30-2/tree/master/docs/Sprints/Sprint%200) 
 
 ### Milestone 2
-22/09/2020 Milestone 2 Documentation [Here](majorproject-4-wed-18-30-2/docs/Sprints/Sprint2)
+22/09/2020 Milestone 2 Documentation [Here](https://github.com/RMIT-SEPT/majorproject-4-wed-18-30-2/tree/master/docs/Sprints/Sprint%202)
 
 ## Members
 * Irvine, Aldo (s3692192)
