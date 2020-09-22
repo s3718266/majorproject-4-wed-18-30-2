@@ -73,7 +73,7 @@ public class ServiceManager {
     		throw new JsonErrorResponse("Invalid user was specified.");
 		
     	var workers = service.getWorkers();
-    	if (workers.contains(workerUser))
+    	if (!workers.contains(workerUser))
     		throw new JsonErrorResponse("Service doesn't contain worker.");
     	
     	workers.remove(workerUser);

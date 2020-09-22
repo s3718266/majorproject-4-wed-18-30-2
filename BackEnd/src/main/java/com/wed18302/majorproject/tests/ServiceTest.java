@@ -3,6 +3,7 @@ package com.wed18302.majorproject.tests;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -50,24 +51,22 @@ public class ServiceTest {
     }
 
     @Test
-    public void setServices_NewService(){
+    public void services_NewService(){
         String status ="pass";
         userInitialize();
-        List<Service> services = null;
-//        serviceRepository.save(new Service(time_str,userRepository.findByEMAIL("admin.1@test.com"),"type1","service1","stuff"));
         try{
-            serviceManager.makeService(userRepository.findByEMAIL("admin.1@test.com").getId(),"type1","service1","stuff");
+            List<Service> services = serviceManager.makeService(userRepository.findByEMAIL("admin.1@test.com").getId(),"type1","service1","stuff");
+            Assert.assertTrue(services!=null);
+            Assert.assertNotNull(serviceRepository.findByID(services.get(0).getId()));
+
+
         }catch (JsonErrorResponse e){
             status = e.toString();
             e.printStackTrace();
         }
-        Assert.assertTrue(serviceRepository.findByID(0).getName().equals("service1"));
-
-        Assert.assertTrue(status.contains("pass"));
-
     }
     @Test
-    public void setServices_assignWorker(){
+    public void services_assignWorker(){
 
         userInitialize();
         serviceRepository.save(new Service(time_str,userRepository.findByEMAIL("admin.1@test.com"),"type1","foo","bar"));
@@ -83,5 +82,28 @@ public class ServiceTest {
         Assert.assertTrue(serviceRepository.findByName("foo").getWorkers().get(0).equals(userRepository.findByEMAIL("worker.1@test.com")));
         Assert.assertTrue(serviceRepository.findByName("foo").getWorkers().get(1).equals(userRepository.findByEMAIL("worker.2@test.com")));
     }
+    @Test
+    public void services_removeWorker(){
+        userInitialize();
+        serviceRepository.save(new Service(time_str,userRepository.findByEMAIL("admin.1@test.com"),"type1","foo","bar"));
+
+        try{
+            serviceManager.assignWorker(serviceRepository.findByName("foo").getId(),userRepository.findByEMAIL("worker.1@test.com").getId());
+            serviceManager.assignWorker(serviceRepository.findByName("foo").getId(),userRepository.findByEMAIL("worker.2@test.com").getId());
+            serviceManager.removeWorker(serviceRepository.findByName("foo").getId(),userRepository.findByEMAIL("worker.1@test.com").getId());
+        }catch (JsonErrorResponse e){
+
+            e.printStackTrace();
+        }
+        boolean b=false;
+        serviceRepository.findByName("foo").getWorkers();
+        if(serviceRepository.findByName("foo").getWorkers()!=null)
+        for(User worker : serviceRepository.findByName("foo").getWorkers()){
+            if(worker.getEmail().equals("worker.1@test.com"))
+                b=true;
+        }
+        Assert.assertFalse(b);
+    }
+
 
 }
