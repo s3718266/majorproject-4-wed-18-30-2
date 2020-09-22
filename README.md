@@ -29,3 +29,4 @@
 ## Code documentation
 
 Unit tests for the backend can be found [Here](majorproject-4-wed-18-30-2/BackEnd/src/main/java/com/wed18302/majorproject/tests/)
+Unit tests for the frontend can be found [Here](majorproject-4-wed-18-30-2/FrontEnd/agme/src/pages/__tests__/)
