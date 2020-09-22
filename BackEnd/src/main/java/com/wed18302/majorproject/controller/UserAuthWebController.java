@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,7 +58,7 @@ public class UserAuthWebController {
     @RequestMapping(value="/auth/getuser", method = RequestMethod.POST)  
     @ResponseBody 
 	// /auth/getuser?token={token}
-	public ResponseEntity<Object> getUserInfo(String token) throws JsonErrorResponse {
+	public ResponseEntity<Object> getUserInfo(@RequestParam("auth-token") String token) throws JsonErrorResponse {
     	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
