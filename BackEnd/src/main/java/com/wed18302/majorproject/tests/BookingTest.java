@@ -58,9 +58,9 @@ public class BookingTest {
     	var service = new Service(now.toString(), admin, "Building", "Test Business", "A test description.");
     	service.getWorkers().add(worker);
     	serviceRepo.save(service);
-    	    	
+    	String future = ZonedDateTime.now(ZoneId.of("UTC")).plus(10,ChronoUnit.DAYS).toString();
     	try {        	
-			List<Booking> bookings = bookingManager.makeBooking(service.getId(), "2020-09-19T09:41:39.808756400Z[UTC]", 
+			List<Booking> bookings = bookingManager.makeBooking(service.getId(), future,
 					customer.getId(), worker.getId());
 			Assert.assertTrue(bookings.size() == 1);
 			
@@ -79,7 +79,7 @@ public class BookingTest {
     	
     	
     }
-    @Test
+    @Test//Will fail
 	public void booking_illegal_bookingTime(){
 		var customer = new User("test.customer@test.com", "password", 0, "Paul", "Smith");
 		var worker = new User("test.worker@test.com", "password", 0, "Paul", "Smith");
