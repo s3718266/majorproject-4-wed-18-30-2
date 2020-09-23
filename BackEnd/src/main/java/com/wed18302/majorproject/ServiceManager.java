@@ -81,6 +81,16 @@ public class ServiceManager {
     	return getServiceMap(service);
 	}
 	
+	public HashMap<String, Object> getService(int serviceId)  throws JsonErrorResponse {
+		
+		Service service = serviceRepo.findByID(serviceId);
+
+    	if (service == null)
+    		throw new JsonErrorResponse("Invalid service was specified.");
+		    	    	
+    	return getServiceMap(service);
+	}
+	
 	public HashMap<String, Object> getServices() {
         HashMap<String, Object> hmap = new HashMap<String, Object>();
         for (Service service : serviceRepo.findAll())

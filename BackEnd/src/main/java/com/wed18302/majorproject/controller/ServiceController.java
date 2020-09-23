@@ -73,6 +73,18 @@ public class ServiceController {
 		});
 	}
 
+    @RequestMapping(value="/service/get", method = RequestMethod.POST)  
+    @ResponseBody  
+	public ResponseEntity<Object> getService(int serviceId) throws JsonErrorResponse {
+    	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
+
+			@Override
+			public HashMap<String, Object> getResponse() throws JsonErrorResponse {
+				return serviceManager.getService(serviceId);
+			}
+		});
+	}
+    
     @RequestMapping(value="/service/getall", method = RequestMethod.POST)  
     @ResponseBody  
 	public ResponseEntity<Object> getServices() throws JsonErrorResponse {
