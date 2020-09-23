@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +27,11 @@ public class ServiceController {
     @RequestMapping(value="/service/add", method = RequestMethod.POST)  
     @ResponseBody 
 	// addService?adminEmail={email}&type=type&name=name&description=description
-	public ResponseEntity<Object> addService(int adminId, String type, String name, String description) throws JsonErrorResponse {
+	public ResponseEntity<Object> addService(
+			@RequestParam("admin-id") int adminId, 
+			@RequestParam("type") String type, 
+			@RequestParam("name") String name, 
+			@RequestParam("description") String description) throws JsonErrorResponse {
     	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
@@ -39,7 +44,7 @@ public class ServiceController {
     @RequestMapping(value="/service/delete", method = RequestMethod.POST)  
     @ResponseBody 
 	// addService?adminEmail={email}&type=type&name=name&description=description
-	public ResponseEntity<Object> deleteService(int serviceId) throws JsonErrorResponse {
+	public ResponseEntity<Object> deleteService(@RequestParam("service-id") int serviceId) throws JsonErrorResponse {
     	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
@@ -51,7 +56,7 @@ public class ServiceController {
 
     @RequestMapping(value="/service/assignworker", method = RequestMethod.POST)  
     @ResponseBody 
-    public ResponseEntity<Object> assignWorker(int serviceId, int userId) throws JsonErrorResponse {
+    public ResponseEntity<Object> assignWorker(@RequestParam("service-id") int serviceId, @RequestParam("user-id") int userId) throws JsonErrorResponse {
     	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
@@ -63,7 +68,7 @@ public class ServiceController {
     
     @RequestMapping(value="/service/removeworker", method = RequestMethod.POST)  
     @ResponseBody 
-    public ResponseEntity<Object> removeWorker(int serviceId, int userId) throws JsonErrorResponse {
+    public ResponseEntity<Object> removeWorker(@RequestParam("service-id") int serviceId, @RequestParam("user-id") int userId) throws JsonErrorResponse {
     	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
@@ -75,7 +80,7 @@ public class ServiceController {
 
     @RequestMapping(value="/service/get", method = RequestMethod.POST)  
     @ResponseBody  
-	public ResponseEntity<Object> getService(int serviceId) throws JsonErrorResponse {
+	public ResponseEntity<Object> getService(@RequestParam("service-id") int serviceId) throws JsonErrorResponse {
     	return WebResponseUtil.genericWebResponse(new GenericWebJsonResponse() {
 
 			@Override
