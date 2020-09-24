@@ -36,8 +36,6 @@ public class User {
     private String FIRSTNAME;
     @NotNull(message = "Last name is mandatory")
     private String LASTNAME;
-    
-    private int USERTYPE;
 
     @ManyToMany(mappedBy = "WORKERS")
     private List<Service> SERVICES;
@@ -48,7 +46,6 @@ public class User {
     public User(String email, String password, int type, String firstname, String lastname) {
     	this.EMAIL = email;
     	this.PASSWORD = password;
-    	this.USERTYPE = type;
     	this.FIRSTNAME = firstname;
     	this.LASTNAME = lastname;
     }
@@ -80,19 +77,7 @@ public class User {
     public List<Service> getWorkerServices() {
     	return this.SERVICES;
     }
-        
-    public UserType getUserType() {    	
-    	return UserType.values()[this.USERTYPE];
-    }
-    
-    public boolean hasPermission(UserType type) {
-    	return getUserType() == type;
-    }
-    
-    public void setUserType(UserType type) {
-    	this.USERTYPE = type.getValue();
-    }
-        
+            
     @Override
     public String toString() {
     	return String.format("ID: %d, Email: %s", this.ID, this.EMAIL);

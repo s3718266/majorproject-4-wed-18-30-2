@@ -56,7 +56,7 @@ public class Authentication {
     		return null;
     	
     	User user = userRepository.findByEMAIL(email);
-    	if (user.hasPermission(permissionLevel))
+    	if (user != null)
     		return user;
     	
     	return null;

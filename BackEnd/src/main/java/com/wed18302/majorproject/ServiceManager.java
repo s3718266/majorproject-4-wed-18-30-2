@@ -33,7 +33,7 @@ public class ServiceManager {
     	User adminUser = userRepo.findByID(adminId);
     	
     	if (adminUser == null)
-    		throw new JsonErrorResponse("Invalid admin email was specified.");
+    		throw new JsonErrorResponse("Invalid admin id was specified.");
 
     	Service service = new Service(now.toString(), adminUser, type, name, description);
     	serviceRepo.save(service);
@@ -58,6 +58,7 @@ public class ServiceManager {
     		throw new JsonErrorResponse("Service already contains worker.");
     	
     	workers.add(workerUser);
+    	serviceRepo.save(service);
     	
     	return getServiceMap(service);
 	}
@@ -77,6 +78,7 @@ public class ServiceManager {
     		throw new JsonErrorResponse("Service doesn't contain worker.");
     	
     	workers.remove(workerUser);
+    	serviceRepo.save(service);
     	
     	return getServiceMap(service);
 	}

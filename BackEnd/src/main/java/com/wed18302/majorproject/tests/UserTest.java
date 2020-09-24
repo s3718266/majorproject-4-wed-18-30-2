@@ -63,7 +63,7 @@ public class UserTest {
         Assert.assertTrue(userRepository.findByEMAIL(email) == null);
     }    
         
-    @Test
+    /*@Test
     // sets a target user to admin
     public void registration_testDatabaseUserSetToAdmin() {
     	String email = "paul.smith.test.account@gmail.com";
@@ -84,6 +84,6 @@ public class UserTest {
     	// delete the newly added test user
         userRepository.delete(testUser);
         Assert.assertTrue(userRepository.findByEMAIL(email) == null);
-    }
+    }*/
     
 }
