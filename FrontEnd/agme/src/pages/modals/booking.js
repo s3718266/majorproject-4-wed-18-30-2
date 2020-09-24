@@ -39,7 +39,10 @@ export default function Booking() {
                 onRequestClose={toggleModal}
                 contentLabel="My dialog"
             >
-                <Form className="login-form">
+                <h1>Welcome to booking </h1>
+
+
+                {/* <Form className="login-form">
 
                     <h1 className="font-weight-bold" id="heading">Booking</h1>
                     <div className="alert alert-danger d-none" id="errorMessage">
@@ -68,7 +71,7 @@ export default function Booking() {
                         Book
                     </Button>
 
-                </Form>
+                </Form> */}
                 <Button onClick={toggleModal}>
                     Close modal
                 </Button>

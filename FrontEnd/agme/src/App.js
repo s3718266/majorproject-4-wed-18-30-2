@@ -6,9 +6,10 @@ import SignIn from './pages/sign-in';
 import SignUp from './pages/sign-up';
 import Profile from './pages/profile';
 import Home from './pages/home';
-import Dashboard from './pages/dashboard';
+import Dashboard from './pages/customer-dashboard';
 import Logout from './pages/logout';
 import NotFoundPage from './pages/NotFoundPage' ;
+import AddService from './pages/modals/addService';
 
 function App() {
   return (
@@ -18,9 +19,10 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/sign-in" component={SignIn} />
+            <Route path="/addservice" component={AddService} />
             <Route path="/sign-up" component={SignUp} />
             <Route path="/profile" component={Profile} />
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/customer-dashboard" component={Dashboard} />
             <Route path="/logout" component={Logout} />
             <Route component={NotFoundPage} />
 

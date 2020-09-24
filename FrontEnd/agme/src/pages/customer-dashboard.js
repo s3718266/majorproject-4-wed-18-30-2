@@ -4,6 +4,7 @@ import { Button, Modal } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import config from '../Constants';
 import Booking from './modals/booking';
+import AddService from './modals/addService';
 
 class Dashboard extends React.Component {
 
@@ -66,6 +67,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
+        <h1>CUSTOMER</h1>
         <h1 id='title'>List of services</h1>
         <table id='datas'>
           <tbody id="tblData">
@@ -79,6 +81,8 @@ class Dashboard extends React.Component {
         <br />
 
         <Booking />
+        <br />
+        <Button href="addService">Add Service</Button>
       </div>
     )
   }
