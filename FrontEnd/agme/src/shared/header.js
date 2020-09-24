@@ -10,7 +10,7 @@ function Header() {
                     {localStorage.getItem('auth_token') != null &&
 
                         <li className="nav-item">
-                            <a className="navbar-brand nav justify-content-center" href="/dashboard">Dashboard</a>
+                            <a className="navbar-brand nav justify-content-center" href="/customer-dashboard">Dashboard</a>
                         </li>
 
                     }

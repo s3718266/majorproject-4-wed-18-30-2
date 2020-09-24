@@ -25,7 +25,7 @@ class SignIn extends React.Component {
       this.showErrorModal(resp.error);
     } else if (typeof resp['auth-token'] != "undefined") {
       localStorage.setItem('auth_token', resp['auth-token']);
-      window.location = 'dashboard';
+      window.location = 'customer-dashboard';
     }
 
   }
