@@ -135,13 +135,23 @@ class Dashboard extends React.Component {
 
   }
 
+  showErrorModal(msg) {
+
+    const node = document.getElementById('errorMessage');
+    node.innerHTML = msg;
+    node.classList.remove('d-none');
+    
+  }
+
   handleSubmit(event) {
 
     event.preventDefault();
 
-    var datetime = document.getElementById('datetime').value;
+    var date = document.getElementById('date').value;
+    var time = document.getElementById('time').value;
     var my_user_id = localStorage.getItem('user_id');
     var worker_id = window.selectedWorker;
+    var datetime = date + "T" + time + ":00.000Z[UTC]";
 
     const data = encodeURI('service-id=' + window.selectedService.id + '&booking-date=' + datetime + "&customer-id=" + my_user_id + "&worker-id=" + worker_id);
 
@@ -155,7 +165,11 @@ class Dashboard extends React.Component {
       .then(res => res.json())
       .then(res => {
 
-        console.log(res);
+        if (typeof res.error != "undefined") {
+          this.showErrorModal(res.error);          
+        } else {
+          window.location = 'bookings';
+        }
 
       });
 
@@ -185,8 +199,13 @@ class Dashboard extends React.Component {
           </div>
 
           <FormGroup>
-            <Label>Date and Time</Label>
-            <Input type="date" id="datetime" name="datetime" placeholder="Date and Time"></Input>
+            <Label>Date</Label>
+            <Input type="date" id="date" name="date" placeholder="Date and Time"></Input>
+          </FormGroup>
+          
+          <FormGroup>
+            <Label>Time (UTC)</Label>
+            <Input type="time" id="time" name="time" placeholder="Time"></Input>
           </FormGroup>
 
           <FormGroup>
