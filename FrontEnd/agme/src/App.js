@@ -8,7 +8,8 @@ import Profile from './pages/profile';
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 import Logout from './pages/logout';
-import NotFoundPage from './pages/NotFoundPage' ;
+import NotFoundPage from './pages/NotFoundPage';
+import Bookings from './pages/bookings';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/sign-up" component={SignUp} />
             <Route path="/profile" component={Profile} />
             <Route path="/dashboard" component={Dashboard} />
+            <Route path="/bookings" component={Bookings} />
             <Route path="/logout" component={Logout} />
             <Route component={NotFoundPage} />
 
