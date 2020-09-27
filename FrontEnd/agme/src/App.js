@@ -10,6 +10,7 @@ import Dashboard from './pages/customer-dashboard';
 import Logout from './pages/logout';
 import NotFoundPage from './pages/NotFoundPage' ;
 import AddService from './pages/modals/addService';
+import Bookings from './pages/bookings';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
             <Route path="/sign-up" component={SignUp} />
             <Route path="/profile" component={Profile} />
             <Route path="/customer-dashboard" component={Dashboard} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/bookings" component={Bookings} />
             <Route path="/logout" component={Logout} />
             <Route component={NotFoundPage} />
 
