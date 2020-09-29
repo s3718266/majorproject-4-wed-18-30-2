@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import config from '../../Constants';
 
-class AddService extends React.Component {
+class AssignWorker extends React.Component {
 
     constructor() {
         super();
@@ -43,7 +43,7 @@ class AddService extends React.Component {
         event.preventDefault();
         const data = new URLSearchParams(new FormData(event.target));
 
-        fetch(config.APP_URL + 'service/add', {
+        fetch(config.APP_URL + 'service/assignworker', {
             method: 'POST',
             body: data
         })
@@ -58,29 +58,19 @@ class AddService extends React.Component {
 
             
             <Form className="login-form" onSubmit={this.handleSubmit}>
-                <h1 className="font-weight-bold" id="heading">Add service</h1>
+                <h1 className="font-weight-bold" id="heading">Assign Worker</h1>
                 <div className="alert alert-danger d-none" id="errorMessage">
                 </div>
                 <div className="alert alert-success d-none" id="successMessage"></div>
 
                 <FormGroup>
-                    <Label>Admin ID</Label>
-                    <Input type="text" name="admin-id" placeholder="Admin ID" ref={node => (this.adminid = node)}></Input>
+                    <Label>Service ID</Label>
+                    <Input type="text" name="service-id" placeholder="Service ID" ref={node => (this.serviceid = node)}></Input>
                 </FormGroup>
 
                 <FormGroup>
-                    <Label>Type</Label>
-                    <Input type="text" name="type" placeholder="Type" ref={node => (this.type = node)}></Input>
-                </FormGroup>
-
-                <FormGroup>
-                    <Label>Name</Label>
-                    <Input type="text" name="name" placeholder="Name" ref={node => (this.name = node)}></Input>
-                </FormGroup>
-
-                <FormGroup>
-                    <Label>Description</Label>
-                    <Input type="textarea" name="description" placeholder="Description" ref={node => (this.description = node)}></Input>
+                    <Label>User ID</Label>
+                    <Input type="text" name="user-id" placeholder="User ID" ref={node => (this.userid = node)}></Input>
                 </FormGroup>
 
                 <Button className="btn-lg btn-success btn-block mt-4 mb-3">
@@ -95,4 +85,4 @@ class AddService extends React.Component {
 
 }
 
-export default AddService;
+export default AssignWorker;

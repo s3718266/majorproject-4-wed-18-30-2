@@ -11,6 +11,8 @@ import Logout from './pages/logout';
 import NotFoundPage from './pages/NotFoundPage' ;
 import AddService from './pages/modals/addService';
 import Bookings from './pages/bookings';
+import AdminDashboard from './pages/admin-dashboard';
+import AssignWorker from './pages/modals/assignWorker';
 
 function App() {
   return (
@@ -27,8 +29,9 @@ function App() {
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/bookings" component={Bookings} />
             <Route path="/logout" component={Logout} />
+            <Route path="/admin-dashboard" component={AdminDashboard} />
+            <Route path="/assignworker" component={AssignWorker} />
             <Route component={NotFoundPage} />
-
           </Switch>
 
         </Router>
