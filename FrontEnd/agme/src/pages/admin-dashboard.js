@@ -6,7 +6,7 @@ import config from '../Constants';
 import Booking from './modals/booking';
 import AddService from './modals/addService';
 
-class Dashboard extends React.Component {
+class AdminDashboard extends React.Component {
 
   constructor(props) {
     super(props)
@@ -59,8 +59,6 @@ class Dashboard extends React.Component {
         "<td>" + type + "</td>" +
         "<td>" + name + "</td>" +
         "</tr>";
-
-      document.getElementById('service').innerHTML += "<option id='" + id + "'>" + name + "</option>";
 
     };
 
@@ -180,7 +178,7 @@ class Dashboard extends React.Component {
 
     return (
       <div>
-        <h1>CUSTOMER</h1>
+        <h1>ADMIN</h1>
 
         <div class="container">
           <h1 id='title'>List of services</h1>
@@ -193,46 +191,15 @@ class Dashboard extends React.Component {
               </tr>
             </tbody>
           </table>
-
           <br />
           <br />
-          <br />
-          <h1>Booking</h1>
+          
+          <h1>Add Services</h1>
+          <Button href="/addservice">Add</Button>
 
-          <Form className="" onSubmit={this.handleSubmit}>
+          <h1>Assign Worker</h1>
+          <Button href="/assignworker">Add</Button>
 
-            <div className="alert alert-danger d-none" id="errorMessage">
-            </div>
-
-            <FormGroup>
-              <Label>Date</Label>
-              <Input type="date" id="date" name="date" placeholder="Date and Time"></Input>
-            </FormGroup>
-
-            <FormGroup>
-              <Label>Time (UTC)</Label>
-              <Input type="time" id="time" name="time" placeholder="Time"></Input>
-            </FormGroup>
-
-            <FormGroup>
-              <Label for="service">Services</Label>
-              <Input type="select" name="service" id="service" onChange={this.handleService}>
-                <option value=""></option>
-              </Input>
-            </FormGroup>
-
-            <FormGroup>
-              <Label for="worker">Worker</Label>
-              <Input type="select" name="worker" id="worker" onChange={this.handleWorker}>
-
-              </Input>
-            </FormGroup>
-
-            <Button className="btn-lg btn-success btn-block mt-5 mb-3" type="submit">
-              Book
-          </Button>
-
-          </Form>
 
         </div>
       </div>
@@ -242,4 +209,4 @@ class Dashboard extends React.Component {
 
 }
 
-export default Dashboard;
+export default AdminDashboard;

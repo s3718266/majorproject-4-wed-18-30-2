@@ -30,52 +30,8 @@ export default function Booking() {
     }
 
     return (
-        <div className="App">
-
-            <Button onClick={toggleModal}>Book a service</Button>
-
-            <Modal
-                isOpen={isOpen}
-                onRequestClose={toggleModal}
-                contentLabel="My dialog"
-            >
-                <h1>Welcome to booking </h1>
-
-
-                {/* <Form className="login-form">
-
-                    <h1 className="font-weight-bold" id="heading">Booking</h1>
-                    <div className="alert alert-danger d-none" id="errorMessage">
-                    </div>
-
-                    <FormGroup>
-                        <Label>Date and Time</Label>
-                        <Input type="date" name="datetime" placeholder="Date and Time"></Input>
-                    </FormGroup>
-
-                    <FormGroup>
-                        <Label for="service">Services</Label>
-                        <Input type="select" name="service" id="service" onChange={handleService}>
-                            {renderOptions()}
-                        </Input>
-                    </FormGroup>                 
-
-                    <FormGroup>
-                        <Label for="worker">Worker</Label>
-                        <Input type="select" name="worker" id="worker">
-                            {renderWorkers()}
-                        </Input>
-                    </FormGroup>
-
-                    <Button className="btn-lg btn-success btn-block mt-5 mb-3" type="submit">
-                        Book
-                    </Button>
-
-                </Form> */}
-                <Button onClick={toggleModal}>
-                    Close modal
-                </Button>
-            </Modal>
+        <div>
+            
         </div>
     );
 }
