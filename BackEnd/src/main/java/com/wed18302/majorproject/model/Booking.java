@@ -1,7 +1,6 @@
 package com.wed18302.majorproject.model;
 
 import java.time.ZonedDateTime;
-import java.util.HashMap;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

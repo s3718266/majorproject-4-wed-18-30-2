@@ -3,6 +3,7 @@ package com.wed18302.majorproject.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,11 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -34,7 +38,8 @@ public class Service {
     private String NAME;
 
     @NotNull
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
+    @JoinColumn(name="admin_id")    
     private User ADMIN;
 
     @ManyToMany
@@ -69,6 +74,7 @@ public class Service {
         return NAME;
     }
 
+    @JsonIgnoreProperties({"workerServices", "adminServices"})
     public User getAdmin() {
         return ADMIN;
     }
@@ -77,6 +83,7 @@ public class Service {
         return TYPE;
     }
 
+    @JsonIgnoreProperties({"workerServices", "adminServices"})
     public List<User> getWorkers() {
     	return this.WORKERS;
     }

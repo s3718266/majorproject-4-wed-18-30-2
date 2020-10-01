@@ -44,7 +44,7 @@ public class Authentication {
 		    DecodedJWT jwt = verifier.verify(token);
 		    return jwt.getSubject();
 		} catch (JWTVerificationException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		}
 	}
