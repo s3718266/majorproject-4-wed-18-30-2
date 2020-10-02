@@ -47,8 +47,7 @@ public class BookingController {
 
 			@Override
 			public boolean hasPrivilleges(User user) {
-				// TODO Auto-generated method stub
-				return false;
+				return true;
 			}
 			
 		});
@@ -67,8 +66,7 @@ public class BookingController {
 
 			@Override
 			public boolean hasPrivilleges(User user) {
-				// TODO Auto-generated method stub
-				return false;
+				return true;
 			}
 		});
     }
@@ -86,8 +84,7 @@ public class BookingController {
 
 			@Override
 			public boolean hasPrivilleges(User user) {
-				// TODO Auto-generated method stub
-				return false;
+				return true;
 			}
 		});
     }
@@ -105,8 +102,7 @@ public class BookingController {
 
 			@Override
 			public boolean hasPrivilleges(User user) {
-				// TODO Auto-generated method stub
-				return false;
+				return true;
 			}
 		});
     }
