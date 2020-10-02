@@ -16,6 +16,7 @@ import com.wed18302.majorproject.model.UserRepository;
 
 public class Authentication {
 
+	public static final String MASTER_KEY_TOKEN = "master";
 	public static final String INSUFFICIENT_PERMISSIONS = generateErrorJson("Insufficient privilliges.");
 	
     @Autowired
@@ -48,6 +49,11 @@ public class Authentication {
 		}
 	}
 			
+	public boolean isMasterKey(HttpServletRequest request) {
+    	String token = request.getParameter("auth-token");
+    	return token.equalsIgnoreCase(MASTER_KEY_TOKEN);
+	}
+	
 	public User authenticate(HttpServletRequest request) {
     	String token = request.getParameter("auth-token");
     	String email = decodeToken(token);

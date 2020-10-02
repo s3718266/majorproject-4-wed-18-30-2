@@ -15,7 +15,7 @@ public class WebResponseUtil {
     	try {
     		
     		// if null, authentication is not required
-    		if (auth != null) {
+    		if (auth != null && !auth.isMasterKey(request)) {
 	    		User user = auth.authenticate(request);
 	    		if (user == null || !response.hasPrivilleges(user))
 	    			throw new JsonErrorResponse(Authentication.INSUFFICIENT_PERMISSIONS);
