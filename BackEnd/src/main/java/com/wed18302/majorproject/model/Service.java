@@ -69,6 +69,10 @@ public class Service {
         return NAME;
     }
 
+    public boolean hasAccessLevel(User user, UserType type) {
+    	return getAccessLevel(user).getValue() >= type.getValue(); 
+    }
+    
     public UserType getAccessLevel(User user) {
     	if (getAdmin() == user)
     		return UserType.Administrator;

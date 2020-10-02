@@ -13,7 +13,6 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.wed18302.majorproject.model.User;
 import com.wed18302.majorproject.model.UserRepository;
-import com.wed18302.majorproject.model.UserType;
 
 public class Authentication {
 
@@ -48,8 +47,8 @@ public class Authentication {
 			return null;
 		}
 	}
-	
-	public User authenticate(HttpServletRequest request, UserType permissionLevel) {
+			
+	public User authenticate(HttpServletRequest request) {
     	String token = request.getParameter("auth-token");
     	String email = decodeToken(token);
     	if (email == null)
