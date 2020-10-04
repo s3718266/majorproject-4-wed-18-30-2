@@ -14,9 +14,14 @@ class Dashboard extends React.Component {
 
   getServices() {
 
+    const data = encodeURI('auth-token=' + localStorage.getItem('auth_token'));
+
     fetch(config.APP_URL + 'service/getall', {
       method: 'POST',
-      body: ""
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: data
     })
       .then(res => res.json())
       .then(res => this.populateServices(res))
@@ -154,7 +159,7 @@ class Dashboard extends React.Component {
     var worker_id = window.selectedWorker;
     var datetime = date + "T" + time + ":00.000Z[UTC]";
 
-    const data = encodeURI('service-id=' + window.selectedService.id + '&booking-date=' + datetime + "&customer-id=" + my_user_id + "&worker-id=" + worker_id);
+    const data = encodeURI('auth-token=' + localStorage.getItem('auth_token') + '&service-id=' + window.selectedService.id + '&booking-date=' + datetime + "&customer-id=" + my_user_id + "&worker-id=" + worker_id);
 
     fetch(config.APP_URL + 'booking/create', {
       method: 'POST',

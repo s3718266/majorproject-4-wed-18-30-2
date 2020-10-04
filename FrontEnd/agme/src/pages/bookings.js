@@ -74,7 +74,7 @@ class Bookings extends React.Component {
 
     var my_user_id = localStorage.getItem('user_id');
 
-    const data = encodeURI('customer-id=' + my_user_id);
+    const data = encodeURI('auth-token=' + localStorage.getItem('auth_token') + '&customer-id=' + my_user_id);
 
     fetch(config.APP_URL + 'booking/findByCustomer', {
       method: 'POST',
