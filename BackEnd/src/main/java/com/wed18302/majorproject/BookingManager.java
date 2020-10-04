@@ -13,6 +13,7 @@ import com.wed18302.majorproject.model.Service;
 import com.wed18302.majorproject.model.ServiceRepository;
 import com.wed18302.majorproject.model.User;
 import com.wed18302.majorproject.model.UserRepository;
+import com.wed18302.majorproject.model.UserType;
 import com.wed18302.majorproject.util.JsonErrorResponse;
 
 public class BookingManager {
@@ -82,6 +83,24 @@ public class BookingManager {
     	
     	bookingRepo.delete(booking);
     	return new ArrayList<Booking>();
+	}
+	
+	public boolean canModifyBooking(int bookingId, User user) {
+		try {
+	    	Booking booking = bookingRepo.findByID(bookingId);
+	    	
+	    	if (booking != null)
+	    	{
+	    		if (booking.getCustomer().equals(user))
+	    			return true;
+	    		
+	    		return booking.getService().hasAccessLevel(user, UserType.Worker);
+	    	}
+		} catch (Exception e) {
+			
+		}
+    	
+    	return false;
 	}
 		
 }

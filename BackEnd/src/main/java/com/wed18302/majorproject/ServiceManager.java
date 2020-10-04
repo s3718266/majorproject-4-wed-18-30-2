@@ -14,6 +14,7 @@ import com.wed18302.majorproject.model.Service;
 import com.wed18302.majorproject.model.ServiceRepository;
 import com.wed18302.majorproject.model.User;
 import com.wed18302.majorproject.model.UserRepository;
+import com.wed18302.majorproject.model.UserType;
 import com.wed18302.majorproject.util.JsonErrorResponse;
 
 public class ServiceManager {
@@ -81,6 +82,17 @@ public class ServiceManager {
     	serviceRepo.save(service);
     	
     	return getServiceMap(service);
+	}
+	
+	public boolean hasPermission(int serviceId, User user, UserType type) {
+		Service service = serviceRepo.findByID(serviceId);
+
+    	if (service != null && user != null)
+    	{
+    		return service.hasAccessLevel(user, type);
+    	}
+    		
+		return false;
 	}
 	
 	public HashMap<String, Object> getService(int serviceId)  throws JsonErrorResponse {

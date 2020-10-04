@@ -102,7 +102,7 @@ public class BookingController {
 
 			@Override
 			public boolean hasPrivilleges(User user) {
-				return true;
+				return bookingManager.canModifyBooking(bookingId, user);
 			}
 		});
     }

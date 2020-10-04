@@ -18,6 +18,7 @@ import com.wed18302.majorproject.ServiceManager;
 import com.wed18302.majorproject.interfaces.GenericWebJsonResponse;
 import com.wed18302.majorproject.model.Service;
 import com.wed18302.majorproject.model.User;
+import com.wed18302.majorproject.model.UserType;
 import com.wed18302.majorproject.util.JsonErrorResponse;
 import com.wed18302.majorproject.util.WebResponseUtil;
 
@@ -69,7 +70,7 @@ public class ServiceController {
 
 			@Override
 			public boolean hasPrivilleges(User user) {
-				return true;
+				return serviceManager.hasPermission(serviceId, user, UserType.Administrator);
 			}
 		});
 	}
@@ -88,7 +89,7 @@ public class ServiceController {
 
 			@Override
 			public boolean hasPrivilleges(User user) {
-				return true;
+				return serviceManager.hasPermission(serviceId, user, UserType.Administrator);
 			}
 		});
 	}
@@ -108,7 +109,7 @@ public class ServiceController {
 
 			@Override
 			public boolean hasPrivilleges(User user) {
-				return true;
+				return serviceManager.hasPermission(serviceId, user, UserType.Administrator);
 			}
 		});
 	}
