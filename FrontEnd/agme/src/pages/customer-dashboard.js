@@ -184,8 +184,11 @@ class Dashboard extends React.Component {
   render() {
 
     return (
-      <div>
-        <h1>CUSTOMER</h1>
+      <div class="container">
+
+        <h1 class="text-center">CUSTOMER</h1>
+
+        <a href="bookings" class="btn btn-primary float-right">All Bookings</a>
 
         <div class="container">
           <h1 id='title'>List of services</h1>
