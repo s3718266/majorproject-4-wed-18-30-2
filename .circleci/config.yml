@@ -1,3 +1,7 @@
+executors:
+  ci-executor:
+    docker:
+      - image: githubtraining/ci-custom:latest
 orbs: # declare what orbs we are going to use
   node: circleci/node@2.0.2 # the node orb provides common node-related configuration
 
@@ -27,3 +31,59 @@ jobs:
           paths:
             - ~/repo/FrontEnd/agme/node_modules
           key: v2-dependencies-{{ checksum "package-lock.json" }}
+          
+          
+          
+          
+jobs:
+  build:
+    executor: ci-executor
+    steps:
+      - checkout
+
+      - run:
+          name: build dependencies
+          command: bundle install
+
+      - run:
+          name: build the jekyll site
+          command: bundle exec jekyll build
+
+      - run:
+          name: notify build is finished
+          command: echo "The build is finished!"
+          
+  testlinks:
+    executor: ci-executor
+    steps:
+      - checkout
+
+      - run:
+          name: build dependencies
+          command: bundle install
+
+      - run:
+          name: build the jekyll site
+          command: bundle exec jekyll build
+
+      - run:
+          name: notify build is finished
+          command: echo "The build is finished!"
+
+      - run:
+          name: run html proofer
+          command: REPLACE-ME-WITH-SCRIPT
+
+      - run:
+          name: notify test is finished
+          command: echo "The test is completed!"
+
+workflows:
+  version: 2.1
+
+  build_and_test:
+    jobs:
+      - build
+      - testlinks:
+          requires:
+            - build
