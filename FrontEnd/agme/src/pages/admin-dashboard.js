@@ -14,9 +14,14 @@ class AdminDashboard extends React.Component {
 
   getServices() {
 
+    const data = encodeURI('auth-token=' + localStorage.getItem('auth_token'));
+
     fetch(config.APP_URL + 'service/getall', {
       method: 'POST',
-      body: ""
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: data
     })
       .then(res => res.json())
       .then(res => this.populateServices(res))
@@ -193,7 +198,7 @@ class AdminDashboard extends React.Component {
           </table>
           <br />
           <br />
-          
+
           <h1>Add Services</h1>
           <Button href="/addservice">Add</Button>
 

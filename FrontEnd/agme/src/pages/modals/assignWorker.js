@@ -41,10 +41,17 @@ class AssignWorker extends React.Component {
     handleSubmit(event) {
 
         event.preventDefault();
-        const data = new URLSearchParams(new FormData(event.target));
+        var sid = document.getElementById('service-id').value;
+        var uid = document.getElementById('user-id').value;
+
+
+        const data = encodeURI('auth-token=' + localStorage.getItem('auth_token') + '&service-id=' + sid + "&user-id=" + uid);
 
         fetch(config.APP_URL + 'service/assignworker', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
             body: data
         })
             .then(res => res.json())
@@ -65,12 +72,12 @@ class AssignWorker extends React.Component {
 
                 <FormGroup>
                     <Label>Service ID</Label>
-                    <Input type="text" name="service-id" placeholder="Service ID" ref={node => (this.serviceid = node)}></Input>
+                    <Input type="text" id="service-id" name="service-id" placeholder="Service ID" ref={node => (this.serviceid = node)}></Input>
                 </FormGroup>
 
                 <FormGroup>
                     <Label>User ID</Label>
-                    <Input type="text" name="user-id" placeholder="User ID" ref={node => (this.userid = node)}></Input>
+                    <Input type="text" id="user-id" name="user-id" placeholder="User ID" ref={node => (this.userid = node)}></Input>
                 </FormGroup>
 
                 <Button className="btn-lg btn-success btn-block mt-4 mb-3">

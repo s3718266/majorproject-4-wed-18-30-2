@@ -41,10 +41,18 @@ class AddService extends React.Component {
     handleSubmit(event) {
 
         event.preventDefault();
-        const data = new URLSearchParams(new FormData(event.target));
+        var aid = document.getElementById('admin-id').value;
+        var type = document.getElementById('type').value;
+        var name = document.getElementById('name').value;
+        var desc = document.getElementById('description').value;
+
+        const data = encodeURI('auth-token=' + localStorage.getItem('auth_token') + '&admin-id=' + aid + "&type=" + type + "&name=" + name + "&description=" + desc);
 
         fetch(config.APP_URL + 'service/add', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
             body: data
         })
             .then(res => res.json())
@@ -56,7 +64,7 @@ class AddService extends React.Component {
 
         return (
 
-            
+
             <Form className="login-form" onSubmit={this.handleSubmit}>
                 <h1 className="font-weight-bold" id="heading">Add service</h1>
                 <div className="alert alert-danger d-none" id="errorMessage">
@@ -65,22 +73,22 @@ class AddService extends React.Component {
 
                 <FormGroup>
                     <Label>Admin ID</Label>
-                    <Input type="text" name="admin-id" placeholder="Admin ID" ref={node => (this.adminid = node)}></Input>
+                    <Input type="text" id="admin-id" name="admin-id" placeholder="Admin ID" ref={node => (this.adminid = node)}></Input>
                 </FormGroup>
 
                 <FormGroup>
                     <Label>Type</Label>
-                    <Input type="text" name="type" placeholder="Type" ref={node => (this.type = node)}></Input>
+                    <Input type="text" id="type" name="type" placeholder="Type" ref={node => (this.type = node)}></Input>
                 </FormGroup>
 
                 <FormGroup>
                     <Label>Name</Label>
-                    <Input type="text" name="name" placeholder="Name" ref={node => (this.name = node)}></Input>
+                    <Input type="text" id="name" name="name" placeholder="Name" ref={node => (this.name = node)}></Input>
                 </FormGroup>
 
                 <FormGroup>
                     <Label>Description</Label>
-                    <Input type="textarea" name="description" placeholder="Description" ref={node => (this.description = node)}></Input>
+                    <Input type="textarea" id="description" name="description" placeholder="Description" ref={node => (this.description = node)}></Input>
                 </FormGroup>
 
                 <Button className="btn-lg btn-success btn-block mt-4 mb-3">
